@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script>
+    </script>
+</head>
+<body>
+<ons-page ng-controller="GearListController">
+        <ons-toolbar>
+            <md-toolbar class="md-hue-2">
+              <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings" ng-click="app.slidingMenu.toggleMenu()">
+                    <i class="zmdi zmdi-menu"></i>
+                </md-button>
+                <h2>
+                  <span>アウトドア道具</span>
+                </h2>
+                <span flex></span>
+              </div>
+            </md-toolbar>
+        </ons-toolbar>
+      <ons-list>
+        <div ng-repeat="genre in genres">
+        <ons-list-header class="{{genre.cls}}"><img ng-src="{{genre.img}}" class="imgicon">{{genre.name}}</ons-list-header>
+        <ons-list-item modifier="chevron" ng-repeat="item in getItems(genre.genreid) | orderBy: 'name'" class="list-item-container" ng-click="openDetail(item.gearid);">
+          <ons-row>
+            <ons-col width="95px">
+                <div class="thumbnail" style="background-image: url('{{getImage(item)}}')">
+                </div>
+            </ons-col>
+            <ons-col>
+              <div class="name">{{item.name}}</div>
+              <div class="location">
+                {{item.maker}}
+              </div>
+              <div class="desc">{{item.text}}</div>
+            </ons-col>
+            <ons-col width="40px"></ons-col>
+          </ons-row>
+        </ons-list-item>
+        </div>
+    </ons-list>
+        <ons-fab class="add-button default-dark" ng-click="openEdit();">
+            <ons-ripple></ons-ripple>
+            <ons-icon icon="fa-plus"></ons-icon>
+        </ons-fab>
+</ons-page>
+<nend-ad-injector></nend-ad-injector>
+</body>
+</html>

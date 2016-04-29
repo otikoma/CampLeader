@@ -1,0 +1,26 @@
+<ons-page style="background-color: white">
+
+    <ons-list>
+
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            onclick="app.slidingMenu.setMainPage('html/top.html', {closeMenu: true})">
+            <i class="fa fa-home fa-lg" style="color: #666"></i>
+            &nbsp; top
+        </ons-list-item>
+
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            onclick="app.slidingMenu.setMainPage('html/plan/planList.html', {closeMenu: true})">
+            <i class="fa fa-pencil-square-o fa-lg" style="color: #666"></i>
+            &nbsp; 計画
+        </ons-list-item>
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            onclick="app.slidingMenu.setMainPage('html/gear/gearList.html', {closeMenu: true})">
+            <i class="fa fa-briefcase fa-lg" style="color: #666"></i>
+            &nbsp; 道具
+        </ons-list-item>
+    </ons-list>
+
+</ons-page>

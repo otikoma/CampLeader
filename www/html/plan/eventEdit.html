@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<ons-page modifier="plan-details" ng-controller="PlanEditController">
+    <ons-toolbar modifier="transparent">
+        <md-toolbar class="md-hue-2">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings" ng-click="backPage()">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                </md-button>
+                <h2>
+                    <span></span>
+                </h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+  </ons-toolbar>
+  <form name="form">
+    <md-contents class="layout-padding">
+        <div layout="row">
+            <div flex="5"></div>
+            <md-input-container class="md-block" flex="auto">
+                <label>title</label>
+                <input ng-model="edititem.title" placeholder="title" required>
+            </md-input-container>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+            <md-input-container class="md-block" flex="auto">
+                <label>datefrom</label>
+                <input type="date" ng-model="edititem.datefrom" placeholder="start date">
+            </md-input-container>
+            <md-input-container class="md-block" flex="auto">
+                <label>dateto</label>
+                <input type="date" ng-model="edititem.dateto" placeholder="end date" ng-min="edititem.datefrom">
+            </md-input-container>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+            <md-input-container class="md-block" flex="auto">
+                <label>text</label>
+                <textarea ng-model="edititem.text" md-maxlength="150" rows="5" id="text" ng-focus="jumpTo('text')"></textarea>
+            </md-input-container>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <md-button class="md-raised md-accent btn-large" flex="auto" ng-click="update();" ng-disabled="form.$invalid">更新</md-button>
+        </div>
+    </md-contents>
+   </form>
+    <ons-bottom-toolbar modifier="nend">
+        <nend-ad-injector></nend-ad-injector>
+    </ons-bottom-toolbar>
+</ons-page>
+</body>
+</html>

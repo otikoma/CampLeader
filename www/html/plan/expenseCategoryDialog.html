@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<ons-dialog var="dialog" cancelable>
+    <ons-list>
+        <ons-list-item modifier="tappable" ng-click="openAddExCampfield()">
+            <div class="prop-desc">
+                <div class="icon">
+                    <img ng-src="images/camp-icons/tent.png" class="imgicon"/>
+                </div>
+                <div class="val">キャンプ場</div>
+            </div>
+        </ons-list-item>
+        <ons-list-item modifier="tappable" ng-click="openAddExMoving()">
+            <div class="prop-desc">
+                <div class="icon">
+                    <img ng-src="images/camp-icons/campingcar.png" class="imgicon"/>
+                </div>
+                <div class="val">交通費</div>
+            </div>
+        </ons-list-item>
+        <ons-list-item modifier="tappable" ng-click="open()">
+            <div class="prop-desc">
+                <div class="icon">
+                    <img ng-src="images/camp-icons/wallet.png" class="imgicon"/>
+                </div>
+                <div class="val">費用</div>
+            </div>
+        </ons-list-item>
+</ons-list>
+</ons-dialog>
+</body>
+</html>

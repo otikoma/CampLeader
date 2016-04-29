@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+</script>
+</head>
+<body>
+
+<ons-page modifier="plan-details" ng-controller="PlanDetailController">
+    <ons-toolbar modifier="transparent">
+        <md-toolbar class="md-hue-2">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings" ng-click="app.navi.popPage()">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                </md-button>
+                <h2>
+                    <span>計画</span>
+                </h2>
+                <span flex></span>
+
+            </div>
+        </md-toolbar>
+    </ons-toolbar>
+        <md-tabs class="md-accent" md-align-tabs="top">
+            <md-tab id="tab1">
+                <md-tab-label>概要</md-tab-label>
+                <md-tab-body>
+                    <md-contents class="layout-padding">
+                        <div layout="row">
+                              <div flex="5"></div>
+                              <md-input-container class="md-block" flex="auto">
+                                <label>title</label>
+                                <input class="input-disabled-display" ng-model="item.title" disabled>
+                              </md-input-container>
+                              <div flex="5"></div>
+                        </div>
+                        <div layout="row">
+                              <div flex="5"></div>
+                              <md-input-container class="md-block" flex="auto">
+                                <label>datefrom</label>
+                                <input type="date" class="input-disabled-display" ng-model="item.datefrom" disabled>
+                              </md-input-container>
+                              <md-input-container class="md-block" flex="auto">
+                                <label>dateto</label>
+                                <input type="date" class="input-disabled-display" ng-model="item.dateto" disabled>
+                              </md-input-container>
+                              <div flex="5"></div>
+                        </div>
+                        <div layout="row">
+                              <div flex="5"></div>
+                                <md-input-container class="md-block" flex="auto">
+                                  <label>text</label>
+                                  <textarea class="input-disabled-display" ng-model="item.text" md-select-on-focus disabled></textarea>
+                                </md-input-container>
+                              <div flex="5"></div>
+                        </div>
+                        <md-button class="md-icon-button" aria-label="Edit" ng-click="openEdit();">
+                            <i class="zmdi zmdi-edit"></i>
+                        </md-button>
+                    </md-contents>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="tab2">
+                <md-tab-label>予定</md-tab-label>
+                <md-tab-body>
+                    <md-content>
+                        <section ng-repeat="date in dates">
+                            <md-subheader>{{date | date:'yyyy/MM/dd'}}</md-subheader>
+                            <md-list>
+                                <md-list-item class="md-2-line" ng-repeat="schedule in getSchedulesDate(date)" ng-click="openEditSchedule(schedule.scheduleid);">
+                                    <div class="md-list-item-text">
+                                        <h3>{{schedule.title}}</h3>
+                                        <p>{{schedule.timefrom | date:'H:mm'}} ～ {{schedule.timeto | date:'H:mm'}}</p>
+                                    </div>
+                                </md-list-item>
+                            </md-list>
+                        </section>
+                        <md-button class="md-icon-button" aria-label="Edit" ng-click="openAddSchedule();">
+                            <i class="zmdi zmdi-plus"></i>
+                        </md-button>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="tab3">
+                <md-tab-label>費用</md-tab-label>
+                <md-tab-body>
+                    <md-toolbar class="md-tall md-accent">
+                        <div style="margin:auto;">合計金額　{{total()}}円</div>
+                    </md-toolbar>
+                    <md-content>
+                        <md-list>
+                            <md-list-item class="md-2-line"ng-repeat="expense in item.expenses track by expense.expenseid" modifier="chevron" ng-click="openEditExpense(expense.expenseid);">
+                                <img ng-src="images/noimage.gif" class="md-avatar" alt="logo" />
+                                <div class="md-list-item-text">
+                                    <h3>{{expense.expenseid}}</h3>
+                                    <p>{{expense.total}}</p>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+                        <md-button class="md-icon-button" aria-label="Edit" ng-click="openAddExpense();">
+                            <i class="zmdi zmdi-plus"></i>
+                        </md-button>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    <ons-bottom-toolbar modifier="nend">
+        <nend-ad-injector></nend-ad-injector>
+    </ons-bottom-toolbar>
+</ons-page>
+</body>
+</html>

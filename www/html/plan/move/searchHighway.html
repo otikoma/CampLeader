@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script>
+    </script>
+</head>
+<body>
+<ons-page modifier="expence-details" ng-controller="SearchHighwayController">
+  <ons-toolbar modifier="transparent">
+    <div class="center">
+      <ons-toolbar-button ng-click="app.navi.popPage();"><ons-icon icon="fa-angle-double-down"></ons-icon></ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+    <div class="navigation-bar navigation-bar--material">
+      <div class="navigation-bar__center navigation-bar--material__center">
+        <span class="toolbar-button toolbar-button--material" ng-click="app.navi.popPage();">
+          <i class="zmdi zmdi-caret-down"></i>
+        </span>
+      </div>
+    </div>
+    <ons-list>
+        <ons-list-item>
+            <div class="prop-desc">
+                <div class="label">出発IC</div>
+                <div class="val">
+                    <input type="text" class="text-input--material" ng-model="startIc" ng-change="getStartSuggest()" autocomplete="on" list="staretIC"/>
+                    <datalist id="staretIC">
+                        <option ng-repeat="suggest in startSuggest" value="{{suggest}}"/>
+                    </datalist>
+                </div>
+            </div>
+        </ons-list-item>
+        <ons-list-item>
+            <div class="prop-desc">
+                <div class="label">到着IC</div>
+                <div class="val">
+                    <input type="text" class="text-input--material" ng-model="endIc" ng-change="getEndSuggest()" autocomplete="on" list="endIc"/>
+                    <datalist id="endIc">
+                        <option ng-repeat="suggest in endSuggest" value="{{suggest}}"/>
+                    </datalist>
+                </div>
+            </div>
+        </ons-list-item>
+        <ons-list-item>
+            <div class="prop-desc">
+                <ons-button modifier="material" ng-click="search()">検索</ons-button>
+            </div>
+        </ons-list-item>
+    </ons-list>
+    <div class="card w90" ng-repeat="(i, route) in routesShow track by route.RouteNo" ng-init="">
+        <div class="card-title">経路{{1 * route.RouteNo + 1}}</div>
+        <div class="card-content">
+            <p>料金：{{route.Summary.TotalToll}}　円</p>
+            <p>所要時間：{{route.Summary.TotalTime}}　分</p>
+            <p>距離：{{route.Summary.TotalLength}}　km</p>
+        </div>
+        <div class="card-title">詳細情報</div>
+        <div class="card-content">
+            <table>
+                <tr>
+                    <th>区間</th>
+                    <th>距離</th>
+                    <th>時間</th>
+                    <th>料金</th>
+                </tr>
+                <tr ng-repeat="(j, section) in comvartArray(route.Details.Section) track by section.Order" ng-init="">
+                	<td>{{section.From}} ⇒ {{section.To}}</td>
+                	<td>{{section.Length}}</td>
+                	<td>{{section.Time}}</td>
+                	<td>
+                        <select>
+                            <option ng-repeat="(k, toll) in comvartArray(section.Tolls.Toll)" >{{toll}}</option>
+                        </select>
+                	</td>
+            	</tr>
+            </table>
+        </div>
+        <div class="card-action">
+            <a href="" style="margin-left: auto;" modifier="material" ng-click="set()">設定</a>
+        </div>
+    </div>
+    <div>
+        {{result}}
+    </div>>
+</ons-page>
+</body>
+</html>

@@ -1,0 +1,144 @@
+/* This is a CSS file */
+
+.page--gear-details__content {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px !important;
+  bottom: 0px;
+}
+.ons-list {
+  margin-top: 12px;
+}
+
+.card {
+  margin:0px !important;
+}
+
+.card-image {
+    height: 250px;
+}
+ons-carousel-item{
+    position: relative;
+    overflow: hidden;
+}
+ons-carousel-item img{
+    position: absolute;
+    top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+}
+.card-title {
+    margin-top:20px;
+}
+
+.edit-button {
+    position: absolute;
+    right:25px;
+    bottom: -25px;
+    z-index: 1;
+}
+
+
+.prop-desc {
+    display:flex;
+    align-items: center;
+    font-size: 14px;
+    margin: 0px;
+}
+
+.one-line {
+    height:44px;
+}
+.multi-line {
+    padding: 10px 0px;
+}
+
+.prop-desc ons-icon {
+  font-size: 14px;
+  vertical-align: -0px;
+  opacity: 0.5;
+}
+.prop-desc .icon {
+    width: 30px;
+    font-size: 14px;
+    line-height: 18px;
+}
+.prop-desc .label {
+    width: 25%;
+    font-size: 14px;
+    line-height: 18px;
+}
+.prop-desc .val{
+    flex: 1;
+    font-size: 14px;
+    line-height: 18px;
+    white-space: pre-line;
+    box-align:center;
+}
+.prop-desc .val input {
+    margin-bottom:20px;
+    opacity: 0.7;
+}
+.prop-desc .val textarea {
+    margin-bottom:20px;
+    opacity: 0.7;
+}
+.page--gear-details__content {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px !important;
+  bottom: 0px;
+}
+
+
+.flex {
+    display:flex;
+    align-items: center;
+}
+.flex .genre-icon {
+    width: 70px;
+}
+.flex .genre-val {
+    flex: 1;
+    font-size: 16px;
+}
+.edit-genre {
+    padding-top: 50px;
+}
+.width100 {
+    width: 100%;
+}
+.width70 {
+    width: 70%;
+}
+.flex-container {
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    -webkit-flex-wrap: wrap; /* Safari */
+    flex-wrap:         wrap;
+  -webkit-justify-content: flex-start; /* Safari */
+  justify-content:         flex-start;
+}
+.flex-item {
+  -webkit-flex: none;
+          flex: none;
+}
+.cover {
+    background-color: #ccc;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    border: 3px solid #fff;
+    background-size: cover;
+}
+.checkedImage {
+    border: 3px solid #FF9800;
+}
+.deleteImage {
+    display: none;
+}

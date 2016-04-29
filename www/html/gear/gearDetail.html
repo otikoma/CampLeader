@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+</script>
+</head>
+<body>
+<ons-page modifier="gear-details" ng-controller="GearDetailController">
+
+    <ons-toolbar modifier="transparent">
+        <md-toolbar class="md-hue-2">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings" ng-click="app.navi.popPage()">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                </md-button>
+                <h2>
+                    <span></span>
+                </h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+    </ons-toolbar>
+    <div class="card">
+        <div class="card-image">
+            <ons-carousel swipeable auto-scroll style="width:100%;height:250px;" var="carousel_detail">
+                <ons-carousel-item ng-repeat="image in item.images track by $index">
+                    <img src="{{image.src}}" class="{{image.class}}"/>
+                </ons-carousel-item>
+            </ons-carousel>
+            <div class="card-title">{{item.name}}</div>
+        </div>
+
+    <ons-fab class="edit-button default-dark" ng-click="openEdit();">
+        <ons-ripple></ons-ripple>
+        <ons-icon icon="fa-pencil"></ons-icon>
+    </ons-fab>
+    </div>
+  <ons-list>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="icon">
+            <img ng-src="{{genre.img}}" class="imgicon"/>
+        </div>
+        <div class="val">{{genre.name}}</div>
+      </div>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="icon">
+            <ons-icon icon="fa-building"></ons-icon>
+        </div>
+        <div class="val">{{item.brand}}</div>
+    　</div>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="icon">
+            <ons-icon icon="fa-jpy"></ons-icon>
+        </div>
+        <div class="val">{{item.price | currency: '' :0}}</div>
+      </div>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="prop-desc multi-line">
+        <div class="icon">
+            <ons-icon icon="fa-sticky-note"></ons-icon>
+        </div>
+        <div class="val">{{item.text}}</div>
+      </div>
+    </ons-list-item>
+  </ons-list>
+</ons-page>
+
+
+</body>
+</html>

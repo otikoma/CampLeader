@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/list.css">
+    <link rel="stylesheet" href="css/gearedit.css">
+    <link rel="stylesheet" href="css/flaticon/flaticon.css"> 
+    <link rel="stylesheet" href="css/AngularMaterial/angular-material.min.css">
+    <script src="js/AngularMaterial/angular-animate.min.js"></script>
+    <script src="js/AngularMaterial/angular-aria.min.js"></script>
+    <script src="js/AngularMaterial/angular-messages.min.js"></script>
+    <script src="js/AngularMaterial/angular-material.min.js"></script>
+    
+    <script>
+        var app = ons.bootstrap('app', ['ngMaterial','ngAnimate']);
+        app.config(function($mdThemingProvider) {
+            $mdThemingProvider.theme('default')
+            .primaryPalette('indigo')
+            .accentPalette('orange');
+            $mdThemingProvider.theme('bg-indigo')
+            .backgroundPalette('indigo');
+        });
+        var nend_params;
+
+        //iOS/Androidアプリそれぞれに共通のコードとする場合は下記のように処理を切り分けます。
+        if( monaca.isIOS ){
+            nend_params = {"media":37205,"site":203611,"spot":572967,"type":1,"oriented":2}; // iOS
+        }
+        if( monaca.isAndroid ){
+            nend_params = {"media":37205,"site":198713,"spot":572966,"type":1,"oriented":3}; // Android
+        }
+        app.directive('nendAdInjector', function () {
+            return {
+                link : function(scope, element) {
+                    var nendOriginalElem = angular.element(nend_wrapper);
+                    element.replaceWith(nendOriginalElem.clone());
+                }
+            }
+        });
+    </script>
+    <script src="js/strage.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/camera.js"></script>
+    <script src="js/gear/GearItems.js"></script>
+    <script src="js/gear/gearController.js"></script>
+    <script src="js/plan/PlanItems.js"></script>
+    <script src="js/plan/planController.js"></script>
+    <script src="js/lib/xml2json.min.js"></script>
+
+</head>
+<body>
+<ons-navigator var="app.navi">
+    <ons-sliding-menu var="app.slidingMenu" menu-page="html/menu.html" main-page="html/top.html" side="left" type="overlay" max-slide-distance="200px">
+    </ons-sliding-menu>
+</ons-navigator>
+<div style="display:none">
+<div id="nend_wrapper"><script type="text/javascript" src="http://js1.nend.net/js/nendAdLoader.js"></script></div>
+</div>
+</body>
+</html>

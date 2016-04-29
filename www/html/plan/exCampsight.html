@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script>
+    </script>
+</head>
+<body>
+<ons-page modifier="expence-details" ng-controller="ExpenseCampsightController">
+<form name="form">
+  <ons-toolbar modifier="transparent">
+          <md-toolbar class="md-hue-2">
+          <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Back" ng-click="backPage();">
+                <i class="zmdi zmdi-arrow-left"></i>
+            </md-button>
+            <h2>
+              <span>計画</span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="updateExpenseCampsight();">
+                <i class="fa-plus"></i>
+            </md-button>
+          </div>
+        </md-toolbar>
+  </ons-toolbar>
+  <div class="card">
+    <div class="card-content">
+        <div class="flex">
+            <div class="card-title">合計金額：</div>
+            <div class="card-title">{{total()}}</div>
+        </div>
+    </div>
+  </div>
+  <ons-list>
+    <ons-list-header>概要</ons-list-header>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="label">キャンプ場</div>
+        <div class="val">
+            <input type="text" ng-model="expense.datas.campsitename" class="text-input text-input--transparent width100"/>
+        </div>
+      </div>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="label">日数</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.days" class="text-input text-input--transparent width100" min=1/>
+        </div>
+      </div>
+    </ons-list-item>
+    <ons-list-header>入場料</ons-list-header>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="label">大人</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.entrance_fee" class="text-input text-input--transparent width100" placeholder="0"/>
+        </div>
+        <div class="label">人数</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.people_num" class="text-input text-input--transparent width100" placeholder="0"/>
+        </div>
+      </div>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="label">子供</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.entrance_fee_child" class="text-input text-input--transparent width100" placeholder="0"/>
+        </div>
+        <div class="label">人数</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.people_num_child" class="text-input text-input--transparent width100" placeholder="0"/>
+        </div>
+      </div>
+    </ons-list-item>
+    <ons-list-header>サイト料金</ons-list-header>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="label">サイト料金</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.sight_fee" class="text-input text-input--transparent width100" placeholder="0"/>
+        </div>
+        <div class="label">サイト数</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.sight_num" class="text-input text-input--transparent width100" placeholder="0"/>
+        </div>
+      </div>
+    </ons-list-item>
+  </ons-list>
+</form>
+</ons-page>
+</body>
+</html>

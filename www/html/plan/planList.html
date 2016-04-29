@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+</script>
+</head>
+<body>
+<ons-page modifier="plan-details" ng-controller="PlanListController">
+    <ons-toolbar modifier="list">
+        <md-toolbar class="md-hue-2">
+          <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Settings" ng-click="app.slidingMenu.toggleMenu()">
+                <i class="zmdi zmdi-menu"></i>
+            </md-button>
+            <h2>
+              <span>計画</span>
+            </h2>
+            <span flex></span>
+          </div>
+        </md-toolbar>
+    </ons-toolbar>
+        <md-content>
+            <md-list>
+                <md-list-item class="md-3-line" ng-repeat="item in getItems() | orderBy: 'datefrom' track by item.planid" ng-click="openDetail(item.planid);">
+                    <img ng-src="{{getImage(item)}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{item.title}}</h3>
+                        <p>{{item.datefrom | date:'MM/dd'}} ～ {{item.dateto | date:'MM/dd'}}</p>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+        <md-button class="md-fab add-button" ng-click="openEdit();">
+            <ons-icon icon="fa-plus"></ons-icon>
+        </md-button>
+</ons-page>
+        <ons-bottom-toolbar modifier="nend">
+            <nend-ad-injector></nend-ad-injector>
+        </ons-bottom-toolbar>
+
+</body>
+</html>

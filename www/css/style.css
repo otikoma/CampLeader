@@ -1,0 +1,212 @@
+.bottom-bar--nend{
+  background-color: white;
+  height: 50px;
+}
+.md-icon-button {
+    font-size:20px !important;
+}
+.navigation-bar {
+    height:56px !important;
+}
+.navigation-bar~.page__content {
+    top:56px !important;
+}
+.navigation-bar .left,.navigation-bar .center,.navigation-bar .right {
+    display:none !important;
+}
+
+.input-disabled-display {
+    color :rgba(0,0,0,0.87) !important;
+}
+
+.btn-large {
+    height: 70px !important;
+}
+
+
+.page--plan-details__content md-tabs {
+    height:100%;
+    padding-bottom: 0px !important;
+}
+
+.card {
+    position: relative;
+    margin: 0.5rem 0 1rem 0;
+    color: #727272;
+    font-size: 15px;
+    background-color: #B6B6B6;
+    transition: box-shadow .25s;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+.card.w90 {
+    width:90%;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    margin-top:20px !important;
+}
+.card.small {
+    height: 300px;
+}
+.card.medium {
+    height: 400px;
+}
+.card.large {
+    height: 500px;
+}
+.card.small .card-image, .card.medium .card-image, .card.large .card-image {
+    max-height: 60%;
+    overflow: hidden;
+}
+.card .card-content {
+    padding: 20px;
+    border-radius: 0 0 2px 2px;
+}
+.card .card-action {
+    border-top: 1px solid rgba(160,160,160,0.2);
+    padding: 20px;
+}
+.card .card-image {
+    position: relative;
+    overflow: hidden;
+}
+.card .card-title {
+    font-size: 22px;
+    font-weight: 300;
+}
+.card .card-content .card-title {
+    line-height: 48px;
+}
+.card .card-image .card-title {
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+}
+.card .card-content p {
+    margin: 0;
+    color: inherit;
+}
+.card .card-image img {
+    display: block;
+    border-radius: 2px 2px 0 0;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating):hover {
+    color: #ffd8a6;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+    color: #ffab40;
+    margin-right: 20px;
+    transition: color .3s ease;
+    text-transform: uppercase;
+}
+img.widthlong{
+    height: 100%;
+}
+img.heightlong{
+    height: 100%;
+}
+a {
+    color: #039be5;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+a {
+    background-color: transparent;
+}
+.imgicon {
+    width: 20px;
+    height: 20px;
+    margin-top:10px;
+    margin-right:4px;
+}
+.default-color {
+    color: white !important;
+    background-color:#8BC34A !important;
+}
+.default-dark {
+    background-color:#689F38 !important;
+}
+.accent-color {
+    background-color:#FF5722 !important;
+}
+
+.cls-pink {
+    background-color: #F8BBD0 !important;//pink
+}
+.cls-pink ons-fab {
+    background-color: #E91E63 !important;//pink
+}
+.cls-amber {
+    background-color: #FFECB3 !important;//amber
+}
+.cls-amber ons-fab {
+    background-color: #FFC107 !important;//amber
+}
+.cls-purple {
+    background-color: #E1BEE7 !important;//purple
+}
+.cls-purple ons-fab {
+    background-color: #9C27B0 !important;//purple
+}
+.cls-deeppurple {
+    background-color: #D1C4E9 !important;//deep purple
+}
+.cls-deeppurple ons-fab {
+    background-color: #673AB7 !important;//deep purple
+}
+.cls-orange {
+    background-color: #FFE0B2 !important;//orange
+}
+.cls-orange ons-fab {
+    background-color: #FF9800 !important;//orange
+}
+.cls-deeporange {
+    background-color: #FFCCBC !important;//deeporange
+}
+.cls-deeporange ons-fab {
+    background-color: #FF5722 !important;//deeporange
+}
+.cls-red {
+    background-color: #FFCDD2 !important;//red
+}
+.cls-red ons-fab {
+    background-color: #F44336 !important;//red
+}
+.cls-blue {
+    background-color: #BBDEFB !important;//blue
+}
+.cls-blue ons-fab {
+    background-color: #2196F3 !important;//blue
+}
+.cls-indigo {
+    background-color: #C5CAE9 !important;//indigo
+}
+.cls-indigo ons-fab {
+    background-color: #3F51B5 !important;//indigo
+}
+.cls-lightblue {
+    background-color: #B3E5FC !important;//lightblue
+}
+.cls-lightblue ons-fab {
+    background-color: #03A9F4 !important;//lightblue
+}
+.cls-brown {
+    background-color: #D7CCC8 !important;//brown
+}
+.cls-brown ons-fab {
+    background-color: #795548 !important;//brown
+}
+.cls-teal {
+    background-color: #B2DFDB !important;//teal
+}
+.cls-teal ons-fab {
+    background-color: #009688 !important;//teal
+}

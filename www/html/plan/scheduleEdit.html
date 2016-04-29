@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script>
+        //
+        // TODO: Write JavaScript code here
+        //
+    </script>
+</head>
+<body>
+<ons-page modifier="schedule-edit" ng-controller="ScheduleEditController">
+
+
+
+    <ons-toolbar modifier="transparent">
+        <md-toolbar class="md-hue-2">
+          <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Back" ng-click="backPage();">
+                <i class="zmdi zmdi-arrow-left"></i>
+            </md-button>
+            <h2>
+              <span>計画</span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="updateSchedule();">
+                <i class="fa-plus"></i>
+            </md-button>
+          </div>
+        </md-toolbar>
+    </ons-toolbar>
+  <ons-list>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="icon">
+        </div>
+        <div class="val">
+            <input type="text" ng-model="editSchedule.title" class="text-input text-input--transparent width100" placeholder="title" required/>
+        </div>
+      </div>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="icon">
+            <ons-icon icon="fa-calendar-o"></ons-icon>
+        </div>
+        <div class="val">
+            <select ng-model="selectDate" ng-options="date for date in dates"></select>
+        </div>
+    　</div>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="icon">
+            <ons-icon icon="fa-calendar-o"></ons-icon>
+        </div>
+        <div class="val">
+            <input type="time" ng-model="editSchedule.timefrom" class="text-input text-input--transparent" placeholder="start date"/>
+        </div>
+    　</div>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="icon">
+            <ons-icon icon="fa-calendar"></ons-icon>
+        </div>
+        <div class="val">
+            <input type="time" ng-model="editSchedule.timeto" class="text-input text-input--transparent" placeholder="end date"/>
+        </div>
+      </div>
+    </ons-list-item>
+  </ons-list>
+</ons-page>
+</body>
+</html>

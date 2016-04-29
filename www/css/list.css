@@ -1,0 +1,46 @@
+.list-item-container {
+  line-height: 1;
+  padding: 15px 0px 15px 15px;
+}
+
+.thumbnail {
+        background-color: #ccc;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+}
+
+.name {
+  font-weight: 500;
+  line-height: 16px;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.location {
+  font-size: 14px;
+  opacity: 0.4;
+  margin-bottom: 6px;
+}
+
+.desc {
+  line-height: 1.2;
+  font-size: 13px;
+  overflow: hidden;
+  height:30px;
+}
+.add-button {
+    position: fixed !important;
+    bottom:60px !important;
+    right:50px !important;
+    z-index: 1 !important;
+    -webkit-overflow-scrolling: touch;
+}
+.ons-tab-bar__footer {
+    background-color: transparent !important;
+    height:0px !important;
+}

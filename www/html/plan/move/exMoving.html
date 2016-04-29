@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script>
+    </script>
+</head>
+<body>
+<ons-page modifier="expence-details" ng-controller="ExpenseMovingController">
+<form name="form">
+  <ons-toolbar modifier="transparent">
+    <div class="left">
+      <ons-toolbar-button ng-click="backPage();"><ons-icon icon="fa-chevron-left"></ons-icon></ons-toolbar-button>
+    </div>
+    <div class="right">
+      <ons-toolbar-button ng-click="updateExpenseMoving();"><ons-icon icon="fa-plus"></ons-icon></ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+  <div class="card">
+    <div class="card-content">
+        <div class="flex">
+            <div class="card-title">合計金額：</div>
+            <div class="card-title">{{total()}}</div>
+        </div>
+    </div>
+  </div>
+  <ons-list>
+    <ons-list-header>車</ons-list-header>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="label">車両費（レンタル代等）</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.car" class="text-input text-input--transparent width70" placeholder="0"/>
+        </div>
+      </div>
+    </ons-list-item>
+    <ons-list-header>ガソリン代</ons-list-header>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="label">燃費（ℓ）</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.fuel_consumption" class="text-input text-input--transparent width70" placeholder="0"/>km/l
+        </div>
+      </div>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="label">ガソリン価格（ℓ）</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.gasoline_price" class="text-input text-input--transparent width70" placeholder="0"/>円/l
+        </div>
+      </div>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="label">走行距離（往復）</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.distance" class="text-input text-input--transparent width70" placeholder="0"/>km
+        </div>
+      </div>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="label">計</div>
+        <div class="val">
+            {{getGasTotal()}}
+        </div>
+      </div>
+    </ons-list-item>
+    <ons-list-header>高速料金</ons-list-header>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="label">往路</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.highway_outward" class="text-input text-input--transparent width70" placeholder="0"/>
+        </div>
+        <div class="val">
+            <ons-button modifier="material" ng-click="searchHighway()">検索</ons-button>
+        </div>
+      </div>
+    </ons-list-item>
+    <ons-list-item>
+      <div class="prop-desc one-line">
+        <div class="label">復路</div>
+        <div class="val">
+            <input type="number" ng-model="expense.datas.highway_homeward" class="text-input text-input--transparent width70" placeholder="0"/>
+        </div>
+      </div>
+    </ons-list-item>
+  </ons-list>
+</form>
+</ons-page>
+</body>
+</html>
