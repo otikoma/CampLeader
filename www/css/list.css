@@ -3,6 +3,12 @@
   padding: 15px 0px 15px 15px;
 }
 
+.list-icon {
+    width:40px;
+    height:40px;
+}
+
+
 .thumbnail {
         background-color: #ccc;
     background-position: center center;

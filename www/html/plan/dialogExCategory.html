@@ -1,0 +1,10 @@
+<md-dialog aria-label="Mango (Fruit)"  ng-cloak>
+    <md-dialog-content>
+        <md-list>
+            <md-list-item ng-repeat="category in categories" ng-click="answer(category.categoryid)">
+                <img alt="{{ category.name }}" ng-src="{{ category.img }}" class="md-avatar" />
+                <p>{{ category.name }}</p>
+            </md-list-item>
+        </md-list>
+    </md-dialog-content>
+</md-dialog>

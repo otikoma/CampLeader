@@ -10,9 +10,6 @@
 </head>
 <body>
 <ons-page modifier="schedule-edit" ng-controller="ScheduleEditController">
-
-
-
     <ons-toolbar modifier="transparent">
         <md-toolbar class="md-hue-2">
           <div class="md-toolbar-tools">
@@ -23,53 +20,44 @@
               <span>計画</span>
             </h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="updateSchedule();">
-                <i class="fa-plus"></i>
-            </md-button>
           </div>
         </md-toolbar>
     </ons-toolbar>
-  <ons-list>
-    <ons-list-item>
-      <div class="prop-desc one-line">
-        <div class="icon">
+    <md-contents>
+        <div layout="row">
+              <div flex="5"></div>
+              <md-input-container class="md-block" flex="auto">
+                <label>title</label>
+                <input ng-model="editSchedule.title" required>
+              </md-input-container>
+              <div flex="5"></div>
         </div>
-        <div class="val">
-            <input type="text" ng-model="editSchedule.title" class="text-input text-input--transparent width100" placeholder="title" required/>
+        <div layout="row">
+              <div flex="5"></div>
+              <md-input-container class="md-block" flex="auto">
+                <label>date</label>
+                <md-select ng-model="selectDate" required>
+                    <md-option ng-repeat="date in dates" value="{{date}}">{{date}}</md-option>
+                </md-select>
+              </md-input-container>
+              <div flex="5"></div>
         </div>
-      </div>
-    </ons-list-item>
-    <ons-list-item>
-      <div class="prop-desc one-line">
-        <div class="icon">
-            <ons-icon icon="fa-calendar-o"></ons-icon>
+        <div layout="row">
+              <div flex="5"></div>
+              <md-input-container class="md-block" flex="auto">
+                <label>start time</label>
+                <input type="time" ng-model="editSchedule.timefrom">
+              </md-input-container>
+              <md-input-container class="md-block" flex="auto">
+                <label>end time</label>
+                <input type="time" ng-model="editSchedule.timeto">
+              </md-input-container>
+              <div flex="5"></div>
         </div>
-        <div class="val">
-            <select ng-model="selectDate" ng-options="date for date in dates"></select>
-        </div>
-    　</div>
-    </ons-list-item>
-    <ons-list-item>
-      <div class="prop-desc one-line">
-        <div class="icon">
-            <ons-icon icon="fa-calendar-o"></ons-icon>
-        </div>
-        <div class="val">
-            <input type="time" ng-model="editSchedule.timefrom" class="text-input text-input--transparent" placeholder="start date"/>
-        </div>
-    　</div>
-    </ons-list-item>
-    <ons-list-item>
-      <div class="prop-desc one-line">
-        <div class="icon">
-            <ons-icon icon="fa-calendar"></ons-icon>
-        </div>
-        <div class="val">
-            <input type="time" ng-model="editSchedule.timeto" class="text-input text-input--transparent" placeholder="end date"/>
-        </div>
-      </div>
-    </ons-list-item>
-  </ons-list>
+        <md-button class="md-fab add-button" aria-label="Edit" ng-click="updateSchedule();">
+            <i class="zmdi zmdi-plus"></i>
+        </md-button>
+    </md-contents>
 </ons-page>
 </body>
 </html>

@@ -54,7 +54,7 @@
                                 </md-input-container>
                               <div flex="5"></div>
                         </div>
-                        <md-button class="md-icon-button" aria-label="Edit" ng-click="openEdit();">
+                        <md-button class="md-fab add-button" aria-label="Edit" ng-click="openEdit();">
                             <i class="zmdi zmdi-edit"></i>
                         </md-button>
                     </md-contents>
@@ -75,7 +75,7 @@
                                 </md-list-item>
                             </md-list>
                         </section>
-                        <md-button class="md-icon-button" aria-label="Edit" ng-click="openAddSchedule();">
+                        <md-button class="md-fab add-button" aria-label="Edit" ng-click="openAddSchedule();">
                             <i class="zmdi zmdi-plus"></i>
                         </md-button>
                     </md-content>
@@ -90,14 +90,14 @@
                     <md-content>
                         <md-list>
                             <md-list-item class="md-2-line"ng-repeat="expense in item.expenses track by expense.expenseid" modifier="chevron" ng-click="openEditExpense(expense.expenseid);">
-                                <img ng-src="images/noimage.gif" class="md-avatar" alt="logo" />
+                                <img alt="logo" ng-src="{{getIcon()}}" class="md-avatar" />
                                 <div class="md-list-item-text">
                                     <h3>{{expense.expenseid}}</h3>
                                     <p>{{expense.total}}</p>
                                 </div>
                             </md-list-item>
                         </md-list>
-                        <md-button class="md-icon-button" aria-label="Edit" ng-click="openAddExpense();">
+                        <md-button class="md-fab add-button" aria-label="Edit" ng-click="showDialog($event)">
                             <i class="zmdi zmdi-plus"></i>
                         </md-button>
                     </md-content>

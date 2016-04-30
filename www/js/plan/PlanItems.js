@@ -17,10 +17,10 @@
         }).factory('ExpenseCategory', function(){
             var data = {};
             data.items = [
-                    {"categoryid":"e01","name":"キャンプ場代", "img":"images/camp-icons/tent.svg","cls":"cls-pink"},
-                    {"categoryid":"e02","name" : "交通費", "img":"images/camp-icons/light150.png","cls":"cls-amber"},
-                    {"categoryid":"e03","name":"食費", "img":"images/camp-icons/sleepingbag.png","cls":"cls-deeppurple"},
-                    {"categoryid":"e04","name":"その他", "img":"images/camp-icons/flame14.png","cls":"cls-orange"}
+                    {"categoryid":"e01","name":"キャンプ場代", "img":"images/camp-icons/tent.png","cls":"cls-pink"},
+                    {"categoryid":"e02","name" : "交通費", "img":"images/camp-icons/campingcar.png","cls":"cls-amber"},
+                    {"categoryid":"e03","name":"食費", "img":"images/camp-icons/pot-on-fire.png","cls":"cls-deeppurple"},
+                    {"categoryid":"e04","name":"その他", "img":"images/camp-icons/wallet.png","cls":"cls-orange"}
                 ];
             
             return data;

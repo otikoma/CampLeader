@@ -30,8 +30,9 @@ app.controller('PlanListController', function($scope, $filter, PlanData) {
             });
             $scope.isios = monaca.isIOS;
         });
-app.controller('PlanDetailController', function($scope, $filter, PlanData, ExpenseCategory) {
+app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdMedia, PlanData, ExpenseCategory) {
             $scope.item = PlanData.selectedItem;
+            $scope.exCategory = ExpenseCategory.items;
             $scope.getSchedulesDate = function(date) {
                 var start = new Date(date);
                 var end = new Date(date);
@@ -97,6 +98,10 @@ app.controller('PlanDetailController', function($scope, $filter, PlanData, Expen
             angular.forEach(ExpenseCategory.items, function(item, i) {
                 exLogoPath[item.categoryid] = item.img;
             });
+            $scope.getIcon = function(categoruid) {
+                var category = $filter("filter")($scope.exCategory, {"categoryid" : categoruid})[0];
+                return category.img;
+            }
             $scope.total = function() {
                 var total = 0;
                 angular.forEach($scope.item.expenses, function(expense, i) {
@@ -113,16 +118,38 @@ app.controller('PlanDetailController', function($scope, $filter, PlanData, Expen
                 date.setDate(date.getDate() + 1);
             }
             //ダイアログ
-            ons.ready(function() {
-                ons.createDialog('html/plan/expenseCategoryDialog.html', {parentScope: $scope}).then(function(dialog) {
-                    $scope.dialog = dialog;
+            $scope.showDialog = function(ev) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+                $mdDialog.show({
+                    controller: DialogController,
+                    templateUrl: 'html/plan/dialogExCategory.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose:true,
+                    fullscreen:false
+                })
+                .then(function(answer) {
+                    if(answer === "e01") {
+                        $scope.openAddExCampfield();
+                    } else if(answer === "e02") {
+                        $scope.openAddExMoving();
+                    }
+                    $scope.status = 'You said the information was "' + answer + '".';
+                }, function() {
+                    return;
                 });
-            });
-            $scope.showDialog = function() {
-                $scope.dialog.show();
             };
-            $scope.hideDialog = function() {
-                $scope.dialog.hide();
+            function DialogController($scope, $mdDialog, ExpenseCategory) {
+                $scope.categories = ExpenseCategory.items;
+                $scope.hide = function() {
+                    $mdDialog.hide();
+                };
+                $scope.cancel = function() {
+                    $mdDialog.cancel();
+                };
+                $scope.answer = function(answer) {
+                    $mdDialog.hide(answer);
+                };
             };
             app.navi.on("postpop", function() {
                 $scope.item = PlanData.selectedItem;
