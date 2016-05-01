@@ -70,7 +70,7 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
                 PlanData.selectedExpence = $filter("filter")($scope.item.expenses, {"expenseid" : expenseid})[0];
                 var category = PlanData.selectedExpence.category;
                 if("e01" == category) {
-                    app.navi.pushPage('html/plan/exCampsight.html');
+                    app.navi.pushPage('html/plan/campsight/exCampsight.html');
                 } else if("e02" == category) {
                     app.navi.pushPage('html/plan/move/exMoving.html');
                 }
@@ -83,7 +83,7 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
                         "campsitename":"","days": 1, "entrance_fee" : "", "people_num" : "", "entrance_fee_child" : "", "people_num_child" : "", "sight_fee" : "", "sight_num" : ""
                     }
                 };
-                app.navi.pushPage('html/plan/exCampsight.html');
+                app.navi.pushPage('html/plan/campsight/exCampsight.html');
                 $scope.hideDialog();
             }
             $scope.openAddExMoving = function() {

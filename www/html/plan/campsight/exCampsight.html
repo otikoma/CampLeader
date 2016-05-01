@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script>
+    </script>
+</head>
+<body>
+<ons-page modifier="expence-details" ng-controller="ExpenseCampsightController">
+
+    <ons-toolbar modifier="transparent">
+          <md-toolbar class="md-hue-2">
+          <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Back" ng-click="backPage();">
+                <i class="zmdi zmdi-arrow-left"></i>
+            </md-button>
+            <h2>
+              <span>計画</span>
+            </h2>
+            <span flex></span>
+          </div>
+        </md-toolbar>
+    </ons-toolbar>
+    
+    <form name="form">
+        <md-contents>
+        
+            <md-toolbar class="md-tall md-accent">
+                <div style="margin:auto;">合計金額　{{total()}}円</div>
+            </md-toolbar>
+            <div layout="row">
+                  <div flex="5"></div>
+                  <md-input-container class="md-block" flex="auto">
+                    <label>キャンプ場</label>
+                    <input ng-model="expense.datas.campsitename">
+                  </md-input-container>
+                  <div flex="5"></div>
+            </div>
+            <div layout="row">
+                  <div flex="5"></div>
+                  <md-input-container class="md-block" flex="auto">
+                    <label>日数</label>
+                    <input type="number"  ng-model="expense.datas.days" min=1>
+                  </md-input-container>
+                  <div flex="5"></div>
+            </div>
+            <div layout="row">
+                  <div flex="5"></div>
+                  <div flex=>入場料</div>
+                  <div flex="5"></div>
+            </div>
+            <div layout="row">
+                  <div flex="5"></div>
+                  <md-input-container class="md-block" flex="auto">
+                    <label>大人</label>
+                    <input type="number"  ng-model="expense.datas.entrance_fee"  placeholder="0">
+                  </md-input-container>
+                  <md-input-container class="md-block" flex="auto">
+                    <label>人数</label>
+                    <input type="number"  ng-model="expense.datas.people_num"  placeholder="0">
+                  </md-input-container>
+                  <div flex="5"></div>
+            </div>
+            <div layout="row">
+                  <div flex="5"></div>
+                  <md-input-container class="md-block" flex="auto">
+                    <label>子ども</label>
+                    <input type="number"  ng-model="expense.datas.entrance_fee_child"  placeholder="0">
+                  </md-input-container>
+                  <md-input-container class="md-block" flex="auto">
+                    <label>人数</label>
+                    <input type="number"  ng-model="expense.datas.people_num_child"  placeholder="0">
+                  </md-input-container>
+                  <div flex="5"></div>
+            </div>
+            <div layout="row">
+                  <div flex="5"></div>
+                  <div flex=>サイト料金</div>
+                  <div flex="5"></div>
+            </div>
+            <div layout="row">
+                  <div flex="5"></div>
+                  <md-input-container class="md-block" flex="auto">
+                    <label>サイト料金</label>
+                    <input type="number"  ng-model="expense.datas.sight_fee"  placeholder="0">
+                  </md-input-container>
+                  <md-input-container class="md-block" flex="auto">
+                    <label>人数</label>
+                    <input type="number"  ng-model="expense.datas.sight_num"  placeholder="0">
+                  </md-input-container>
+                  <div flex="5"></div>
+            </div>
+            <footer style="height:100px">
+            </footer>
+                        
+        </md-contents>
+        <md-button class="md-fab add-button" ng-click="updateExpenseCampsight();">
+                <i class="zmdi zmdi-plus"></i>
+        </md-button>
+    </form>
+</ons-page>
+</body>
+</html>
