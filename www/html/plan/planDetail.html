@@ -21,7 +21,7 @@
             </div>
         </md-toolbar>
     </ons-toolbar>
-        <md-tabs class="md-accent" md-align-tabs="top">
+        <md-tabs class="md-accent" md-align-tabs="top" md-selected="selectedIndex">
             <md-tab id="tab1">
                 <md-tab-label>概要</md-tab-label>
                 <md-tab-body>
@@ -54,9 +54,6 @@
                                 </md-input-container>
                               <div flex="5"></div>
                         </div>
-                        <md-button class="md-fab add-button" aria-label="Edit" ng-click="openEdit();">
-                            <i class="zmdi zmdi-edit"></i>
-                        </md-button>
                     </md-contents>
                 </md-tab-body>
             </md-tab>
@@ -64,7 +61,7 @@
                 <md-tab-label>予定</md-tab-label>
                 <md-tab-body>
                     <md-content>
-                        <section ng-repeat="date in dates">
+                        <section ng-repeat="date in getDates()">
                             <md-subheader>{{date | date:'yyyy/MM/dd'}}</md-subheader>
                             <md-list>
                                 <md-list-item class="md-2-line" ng-repeat="schedule in getSchedulesDate(date)" ng-click="openEditSchedule(schedule.scheduleid);">
@@ -72,12 +69,19 @@
                                         <h3>{{schedule.title}}</h3>
                                         <p>{{schedule.timefrom | date:'H:mm'}} ～ {{schedule.timeto | date:'H:mm'}}</p>
                                     </div>
+                                    <md-menu md-offset="0 -7">
+                                      <md-button  class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                        <i class="zmdi zmdi-more-vert"></i>
+                                      </md-button>
+                                      <md-menu-content width="2">
+                                        <md-menu-item>
+                                          <md-button ng-click="deleteSchedule(schedule.scheduleid)"> <span md-menu-align-target>削除</span></md-button>
+                                        </md-menu-item>
+                                      </md-menu-content>
+                                    </md-menu>
                                 </md-list-item>
                             </md-list>
                         </section>
-                        <md-button class="md-fab add-button" aria-label="Edit" ng-click="openAddSchedule();">
-                            <i class="zmdi zmdi-plus"></i>
-                        </md-button>
                     </md-content>
                 </md-tab-body>
             </md-tab>
@@ -90,20 +94,30 @@
                     <md-content>
                         <md-list>
                             <md-list-item class="md-2-line"ng-repeat="expense in item.expenses track by expense.expenseid" modifier="chevron" ng-click="openEditExpense(expense.expenseid);">
-                                <img alt="logo" ng-src="{{getIcon()}}" class="md-avatar" />
+                                <img alt="logo" ng-src="{{getIcon(expense.category)}}" class="md-avatar" />
                                 <div class="md-list-item-text">
                                     <h3>{{expense.expenseid}}</h3>
                                     <p>{{expense.total}}</p>
                                 </div>
+                                <md-menu md-offset="0 -7">
+                                  <md-button  class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                    <i class="zmdi zmdi-more-vert"></i>
+                                  </md-button>
+                                  <md-menu-content width="2">
+                                    <md-menu-item>
+                                      <md-button ng-click="deleteExpense(expense.expenseid)"> <span md-menu-align-target>削除</span></md-button>
+                                    </md-menu-item>
+                                  </md-menu-content>
+                                </md-menu>
                             </md-list-item>
                         </md-list>
-                        <md-button class="md-fab add-button" aria-label="Edit" ng-click="showDialog($event)">
-                            <i class="zmdi zmdi-plus"></i>
-                        </md-button>
                     </md-content>
                 </md-tab-body>
             </md-tab>
         </md-tabs>
+        <md-button class="md-fab add-button" aria-label="Edit" ng-click="openEdit($event);">
+            <i class="zmdi zmdi-edit"></i>
+        </md-button>
     <ons-bottom-toolbar modifier="nend">
         <nend-ad-injector></nend-ad-injector>
     </ons-bottom-toolbar>

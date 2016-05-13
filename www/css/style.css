@@ -29,113 +29,24 @@
     padding-bottom: 0px !important;
 }
 
-.card {
-    position: relative;
-    margin: 0.5rem 0 1rem 0;
-    color: #727272;
-    font-size: 15px;
-    background-color: #B6B6B6;
-    transition: box-shadow .25s;
-    border-radius: 2px;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-}
-.card.w90 {
-    width:90%;
-    margin-left:auto !important;
-    margin-right:auto !important;
-    margin-top:20px !important;
-}
-.card.small {
-    height: 300px;
-}
-.card.medium {
-    height: 400px;
-}
-.card.large {
-    height: 500px;
-}
-.card.small .card-image, .card.medium .card-image, .card.large .card-image {
-    max-height: 60%;
-    overflow: hidden;
-}
-.card .card-content {
-    padding: 20px;
-    border-radius: 0 0 2px 2px;
-}
-.card .card-action {
-    border-top: 1px solid rgba(160,160,160,0.2);
-    padding: 20px;
-}
-.card .card-image {
-    position: relative;
-    overflow: hidden;
-}
-.card .card-title {
-    font-size: 22px;
-    font-weight: 300;
-}
-.card .card-content .card-title {
-    line-height: 48px;
-}
-.card .card-image .card-title {
-    color: #fff;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 20px;
-}
-.card .card-content p {
-    margin: 0;
-    color: inherit;
-}
-.card .card-image img {
-    display: block;
-    border-radius: 2px 2px 0 0;
-    position: relative;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-}
-.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating):hover {
-    color: #ffd8a6;
-}
 
-.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
-    color: #ffab40;
-    margin-right: 20px;
-    transition: color .3s ease;
-    text-transform: uppercase;
-}
 img.widthlong{
     height: 100%;
 }
 img.heightlong{
     height: 100%;
 }
+div.row {
+  border-bottom: 1px dashed #ddd; 
+}
 a {
     color: #039be5;
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
 }
+
 a {
     background-color: transparent;
-}
-.imgicon {
-    width: 20px;
-    height: 20px;
-    margin-top:10px;
-    margin-right:4px;
-}
-.default-color {
-    color: white !important;
-    background-color:#8BC34A !important;
-}
-.default-dark {
-    background-color:#689F38 !important;
-}
-.accent-color {
-    background-color:#FF5722 !important;
 }
 
 .cls-pink {

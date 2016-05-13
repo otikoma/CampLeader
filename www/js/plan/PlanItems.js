@@ -19,7 +19,7 @@
             data.items = [
                     {"categoryid":"e01","name":"キャンプ場代", "img":"images/camp-icons/tent.png","cls":"cls-pink"},
                     {"categoryid":"e02","name" : "交通費", "img":"images/camp-icons/campingcar.png","cls":"cls-amber"},
-                    {"categoryid":"e03","name":"食費", "img":"images/camp-icons/pot-on-fire.png","cls":"cls-deeppurple"},
+                //    {"categoryid":"e03","name":"食費", "img":"images/camp-icons/pot-on-fire.png","cls":"cls-deeppurple"},
                     {"categoryid":"e04","name":"その他", "img":"images/camp-icons/wallet.png","cls":"cls-orange"}
                 ];
             

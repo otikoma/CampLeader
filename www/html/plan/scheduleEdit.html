@@ -24,6 +24,7 @@
         </md-toolbar>
     </ons-toolbar>
     <md-contents>
+    <form name="form">
         <div layout="row">
               <div flex="5"></div>
               <md-input-container class="md-block" flex="auto">
@@ -50,14 +51,18 @@
               </md-input-container>
               <md-input-container class="md-block" flex="auto">
                 <label>end time</label>
-                <input type="time" ng-model="editSchedule.timeto">
+                <input type="time" ng-model="editSchedule.timeto" ng-min="editSchedule.timefrom">
               </md-input-container>
               <div flex="5"></div>
         </div>
-        <md-button class="md-fab add-button" aria-label="Edit" ng-click="updateSchedule();">
-            <i class="zmdi zmdi-plus"></i>
-        </md-button>
+        <div layout="row">
+            <md-button class="md-raised md-accent btn-large" flex="auto" ng-click="updateSchedule();" ng-disabled="form.$invalid">更新</md-button>
+        </div>
+        </form>
     </md-contents>
+    <ons-bottom-toolbar modifier="nend">
+        <nend-ad-injector></nend-ad-injector>
+    </ons-bottom-toolbar>
 </ons-page>
 </body>
 </html>

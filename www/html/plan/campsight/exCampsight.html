@@ -90,14 +90,15 @@
                   </md-input-container>
                   <div flex="5"></div>
             </div>
-            <footer style="height:100px">
-            </footer>
                         
         </md-contents>
-        <md-button class="md-fab add-button" ng-click="updateExpenseCampsight();">
-                <i class="zmdi zmdi-plus"></i>
-        </md-button>
+        <div layout="row">
+            <md-button class="md-raised md-accent btn-large" flex="auto" ng-click="updateExpenseCampsight();" ng-disabled="form.$invalid">更新</md-button>
+        </div>
     </form>
+    <ons-bottom-toolbar modifier="nend">
+        <nend-ad-injector></nend-ad-injector>
+    </ons-bottom-toolbar>
 </ons-page>
 </body>
 </html>
