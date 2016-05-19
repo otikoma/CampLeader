@@ -8,7 +8,17 @@
     height:40px;
 }
 
+.imgicon {
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+}
 
+.imgicon-fab {
+    width: 16px;
+    height: 16px;
+    margin-top: 10px;
+}
 .thumbnail {
         background-color: #ccc;
     background-position: center center;

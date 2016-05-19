@@ -40,15 +40,15 @@
   <preference name="SplashScreenDelay" value="1000"/>
   <preference name="Fullscreen" value="false"/>
   <feature name="Camera">
-    <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
-    <param name="ios-package" value="CDVCamera" />
+    <param name="android-package" value="org.apache.cordova.camera.CameraLauncher"/>
+    <param name="ios-package" value="CDVCamera"/>
   </feature>
   <feature name="File">
-    <param name="android-package" value="org.apache.cordova.file.FileUtils" />
-    <param name="ios-package" value="CDVFile" />
+    <param name="android-package" value="org.apache.cordova.file.FileUtils"/>
+    <param name="ios-package" value="CDVFile"/>
   </feature>
   <feature name="FileTransfer">
-    <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
-    <param name="ios-package" value="CDVFileTransfer" />
+    <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer"/>
+    <param name="ios-package" value="CDVFileTransfer"/>
   </feature>
 </widget>

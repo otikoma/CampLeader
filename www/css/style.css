@@ -11,6 +11,12 @@
 .navigation-bar~.page__content {
     top:56px !important;
 }
+.navigation-bar.search {
+    height:112px !important;
+}
+.navigation-bar.search~.page__content {
+    top:112px !important;
+}
 .navigation-bar .left,.navigation-bar .center,.navigation-bar .right {
     display:none !important;
 }
@@ -29,6 +35,12 @@
     padding-bottom: 0px !important;
 }
 
+md-toolbar i {
+    color : #fff !important;
+}
+md-toolbar md-select,md-toolbar md-select:focus {
+    color : #fff !important;
+}
 
 img.widthlong{
     height: 100%;
@@ -49,75 +61,78 @@ a {
     background-color: transparent;
 }
 
+.hide {
+    height:0px;
+}
 .cls-pink {
     background-color: #F8BBD0 !important;//pink
 }
-.cls-pink ons-fab {
+.cls-pink button.md-fab {
     background-color: #E91E63 !important;//pink
 }
 .cls-amber {
     background-color: #FFECB3 !important;//amber
 }
-.cls-amber ons-fab {
+.cls-amber button.md-fab {
     background-color: #FFC107 !important;//amber
 }
 .cls-purple {
     background-color: #E1BEE7 !important;//purple
 }
-.cls-purple ons-fab {
+.cls-purple button.md-fab {
     background-color: #9C27B0 !important;//purple
 }
 .cls-deeppurple {
     background-color: #D1C4E9 !important;//deep purple
 }
-.cls-deeppurple ons-fab {
+.cls-deeppurple button.md-fab {
     background-color: #673AB7 !important;//deep purple
 }
 .cls-orange {
     background-color: #FFE0B2 !important;//orange
 }
-.cls-orange ons-fab {
+.cls-orange button.md-fab {
     background-color: #FF9800 !important;//orange
 }
 .cls-deeporange {
     background-color: #FFCCBC !important;//deeporange
 }
-.cls-deeporange ons-fab {
+.cls-deeporange button.md-fab {
     background-color: #FF5722 !important;//deeporange
 }
 .cls-red {
     background-color: #FFCDD2 !important;//red
 }
-.cls-red ons-fab {
+.cls-red button.md-fab {
     background-color: #F44336 !important;//red
 }
 .cls-blue {
     background-color: #BBDEFB !important;//blue
 }
-.cls-blue ons-fab {
+.cls-blue button.md-fab {
     background-color: #2196F3 !important;//blue
 }
 .cls-indigo {
     background-color: #C5CAE9 !important;//indigo
 }
-.cls-indigo ons-fab {
+.cls-indigo button.md-fab {
     background-color: #3F51B5 !important;//indigo
 }
 .cls-lightblue {
     background-color: #B3E5FC !important;//lightblue
 }
-.cls-lightblue ons-fab {
+.cls-lightblue button.md-fab {
     background-color: #03A9F4 !important;//lightblue
 }
 .cls-brown {
     background-color: #D7CCC8 !important;//brown
 }
-.cls-brown ons-fab {
+.cls-brown button.md-fab {
     background-color: #795548 !important;//brown
 }
 .cls-teal {
     background-color: #B2DFDB !important;//teal
 }
-.cls-teal ons-fab {
+.cls-teal button.md-fab {
     background-color: #009688 !important;//teal
 }

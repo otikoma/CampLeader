@@ -6,7 +6,7 @@
 </head>
 <body>
 <ons-page modifier="plan-details" ng-controller="PlanListController">
-    <ons-toolbar modifier="list">
+    <ons-toolbar modifier="list" ng-class="{search: searchOpen}">
         <md-toolbar class="md-hue-2">
           <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings" ng-click="app.slidingMenu.toggleMenu()">
@@ -16,16 +16,22 @@
               <span>計画</span>
             </h2>
             <span flex></span>
+            <md-button class="md-icon-button" aria-label="Settings" ng-click="searchOpen = !searchOpen">
+                <i class="zmdi zmdi-search"></i>
+            </md-button>
           </div>
         </md-toolbar>
-    </ons-toolbar>
-        <md-toolbar class="md-hue-2">
-            <span flex></span>
-            <md-input-container>
-                <label>年月</label>
-                <input type="month" ng-model="selectedMonth" />
-            </md-input-container>
+        <md-toolbar class="md-hue-2" ng-class="{hide: !searchOpen}">
+            <div layout="row">
+                <div flex="5"></div>
+                <md-input-container  style="font-size:14px;margin:0;" flex>
+                    <label style="color:#fff;">絞り込み</label>
+                    <input type="month" ng-model="selectedMonth" />
+                </md-input-container>
+                <div flex="5"></div>
+            </div>
         </md-toolbar>
+    </ons-toolbar>
         <md-content>
             <md-list>
                 <md-list-item class="md-3-line" ng-repeat="item in getItems() | orderBy:'-datefrom' track by item.planid" ng-click="openDetail(item.planid);">

@@ -3,10 +3,18 @@
 app.controller('GearListController', function($scope, $filter, GearGenre, GearData) {
             $scope.genres = GearGenre.items;
             $scope.items = GearData.items;
+            $scope.searchOpen = false;
             $scope.openDetail = function(gearid) {
                 GearData.selectedItem = $filter("filter")(GearData.items, {"gearid" : gearid})[0];
                 app.navi.pushPage('html/gear/gearDetail.html');
             };
+            $scope.getGenres = function() {
+                if($scope.serachGenre && $scope.serachGenre.length > 0) {
+                    return $filter("filter")($scope.genres, {"genreid" : $scope.serachGenre});
+                } else {
+                    return $scope.genres;
+                }
+            }
             $scope.getItems = function(genreid) {
                 var items = $filter("filter")($scope.items, {"genreid" : genreid});
                 return items;
@@ -20,24 +28,54 @@ app.controller('GearListController', function($scope, $filter, GearGenre, GearDa
                 }
             };
             $scope.openEdit = function() {
-                GearData.selectedItem = {"genreid" : "g001", "gearid" : createId('GR'), "name" : "","text":"","price":"","brand":"", "images":[]};
+                GearData.selectedItem = {"genreid" : "g001", "gearid" : createId('GR'), "name" : "","text":"","price":"","brand":"", "images":[], "plancategory":[]};
                 app.navi.pushPage('html/gear/gearEdit.html');
             };
-            app.navi.on("postpop", function() {
-                $scope.$apply(function () {
-                    $scope.items = GearData.items;
+            $scope.delete = function(gearid) {
+                //データ削除
+                if(!window.confirm(deletemsg)) {
+                    return;
+                }
+                var olditems = GearData.items;
+                var b = false;
+                angular.forEach(olditems, function(item) {
+                    if (gearid === item.gearid) {
+                        angular.forEach(item.images, function(image) {
+                            deleteImage(image.name);
+                        });
+                        var index = GearData.items.indexOf(item);
+                        GearData.items.splice(index, 1);
+                    }
                 });
+                saveStrageData('GearData', GearData.items);
+            }
+            app.navi.on("postpop", function() {
+                $scope.items = GearData.items;
             });
-            $scope.isios = monaca.isIOS;
         });
-app.controller('GearDetailController', function($scope, $filter, GearGenre, GearData) {
+app.controller('GearDetailController', function($scope, $filter, GearGenre, GearData, PlanCategory) {
             $scope.item = GearData.selectedItem;
             $scope.genre = $filter("filter")(GearGenre.items, {"genreid" : $scope.item.genreid})[0];
+            $scope.genreCls = $scope.genre.cls;
+            $scope.images = $scope.item.images;
+            $scope.plancategory = PlanCategory.items;
+            if($scope.images === undefined || $scope.images.length ==0) {
+                $scope.images = [{src:"images/noimage.gif",class:"heightlong"}];
+            }
             $scope.openEdit = function() {
                 app.navi.pushPage('html/gear/gearEdit.html');
             }
+            $scope.plancategoryexists = function (item) {
+                return $scope.item.plancategory.indexOf(item) > -1;
+            };
             app.navi.on("postpop", function() {
                 $scope.item = GearData.selectedItem;
+                $scope.genre = $filter("filter")(GearGenre.items, {"genreid" : $scope.item.genreid})[0];
+                $scope.genreCls = $scope.genre.cls;
+                $scope.images = $scope.item.images;
+                if($scope.images === undefined || $scope.images.length ==0) {
+                    $scope.images = [{src:"images/noimage.gif",class:"heightlong"}];
+                }
                 $scope.$apply(function () {
                     setImmediate(function() {
                         carousel_detail.refresh();
@@ -46,15 +84,19 @@ app.controller('GearDetailController', function($scope, $filter, GearGenre, Gear
             });
             $scope.isios = monaca.isIOS;
         });
-app.controller('GearEditController', function($scope, $filter, GearGenre, GearData) {
+app.controller('GearEditController', function($scope, $filter, $mdDialog, GearGenre, GearData, PlanCategory) {
             $scope.item = GearData.selectedItem;
             $scope.edititem = angular.copy($scope.item);
             $scope.genres = GearGenre.items;
+            $scope.plancategory = PlanCategory.items;
             $scope.genre = $filter("filter")(GearGenre.items, {"genreid" : $scope.item.genreid})[0];
             
             $scope.noimage = ($scope.edititem.images === undefined || $scope.edititem.images.length == 0);
             
             $scope.backPage = function() {
+                if(!window.confirm(msg)) {
+                    return;
+                }
                 //登録していない画像を削除
                 if(!$scope.noimage) {
                     angular.forEach($scope.edititem.images, function(image) {
@@ -96,18 +138,37 @@ app.controller('GearEditController', function($scope, $filter, GearGenre, GearDa
             //ダイアログ
             ons.ready(function() {
                 $scope.genreCls = $scope.genre.cls;
-                ons.createDialog('html/gear/genresDialog.html', {parentScope: $scope}).then(function(dialog) {
-                    $scope.dialog = dialog;
-                });
                 camerainit();
             });
-            $scope.showDialog = function() {
-                $scope.dialog.show();
+
+            //ダイアログ表示
+            $scope.showDialog = function(ev) {
+                $mdDialog.show({
+                    controller: GenreDialogController,
+                    templateUrl: 'html/gear/genresDialog.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose:true,
+                    fullscreen:false
+                })
+                .then(function(answer) {
+                    $scope.setGenre(answer);
+                }, function() {
+                    return;
+                });
             };
-            $scope.hideDialog = function() {
-                $scope.dialog.hide();
+            function GenreDialogController($scope, GearGenre){
+                $scope.genres = GearGenre.items;
+                $scope.hide = function() {
+                    $mdDialog.hide();
+                };
+                $scope.cancel = function() {
+                    $mdDialog.cancel();
+                };
+                $scope.answer = function(answer) {
+                    $mdDialog.hide(answer);
+                };
             };
-            
             $scope.openCamera = function() {
                 camera($scope);
             }
@@ -129,12 +190,17 @@ app.controller('GearEditController', function($scope, $filter, GearGenre, GearDa
                 $scope.genreCls = $scope.genre.cls;
                 $scope.hideDialog();
             }
-            $scope.selectImage =function(image) {
-                if(image.checked) {
-                    image.checked = false;
-                } else{ 
-                    image.checked = true;
+            $scope.plancategorytoggle = function (item) {
+                blur();
+                var idx = $scope.edititem.plancategory.indexOf(item);
+                if (idx > -1) {
+                    $scope.edititem.plancategory.splice(idx, 1);
                 }
-            }
-            $scope.isios = monaca.isIOS;
+                else {
+                    $scope.edititem.plancategory.push(item);
+                }
+            };
+            $scope.plancategoryexists = function (item) {
+                return $scope.edititem.plancategory.indexOf(item) > -1;
+            };
         });

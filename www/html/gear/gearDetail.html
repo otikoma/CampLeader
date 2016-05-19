@@ -6,7 +6,6 @@
 </head>
 <body>
 <ons-page modifier="gear-details" ng-controller="GearDetailController">
-
     <ons-toolbar modifier="transparent">
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
@@ -20,55 +19,72 @@
             </div>
         </md-toolbar>
     </ons-toolbar>
-    <div class="card">
-        <div class="card-image">
-            <ons-carousel swipeable auto-scroll style="width:100%;height:250px;" var="carousel_detail">
-                <ons-carousel-item ng-repeat="image in item.images track by $index">
-                    <img src="{{image.src}}" class="{{image.class}}"/>
-                </ons-carousel-item>
-            </ons-carousel>
-            <div class="card-title">{{item.name}}</div>
+    <ons-carousel swipeable auto-scroll style="width:100%;height:250px;" var="carousel_detail">
+        <ons-carousel-item ng-repeat="image in images">
+            <img src="{{image.src}}" class="{{image.class}}"/>
+        </ons-carousel-item>
+    </ons-carousel>
+    <md-toolbar ng-class="genreCls">
+        <div layout="row">
+            <md-button class="md-fab md-mini" aria-label="Favorite" onclick="false;">
+                <img ng-src="{{genre.img}}" class="imgicon-fab"/>
+            </md-button>
+            <h2 class="md-toolbar-tools md-toolbar-tools-bottom">
+                <span class="md-flex">{{genre.name}}</span>
+            </h2>
+            <span flex></span>
         </div>
-
-    <ons-fab class="edit-button default-dark" ng-click="openEdit();">
-        <ons-ripple></ons-ripple>
-        <ons-icon icon="fa-pencil"></ons-icon>
-    </ons-fab>
-    </div>
-  <ons-list>
-    <ons-list-item>
-      <div class="prop-desc one-line">
-        <div class="icon">
-            <img ng-src="{{genre.img}}" class="imgicon"/>
+    </md-toolbar>
+    <md-contents layout-padding>
+        <div layout="row">
+              <div flex="5"></div>
+              <md-input-container class="md-block" flex="auto">
+                <label>品名</label>
+                <input ng-model="item.name" class="input-disabled-display" disabled/>
+              </md-input-container>
+              <div flex="5"></div>
         </div>
-        <div class="val">{{genre.name}}</div>
-      </div>
-    </ons-list-item>
-    <ons-list-item>
-      <div class="prop-desc one-line">
-        <div class="icon">
-            <ons-icon icon="fa-building"></ons-icon>
+        <div layout="row">
+              <div flex="5"></div>
+              <md-input-container class="md-block" flex="auto">
+                <label>ブランド</label>
+                <input ng-model="item.brand"  class="input-disabled-display" disabled/>
+              </md-input-container>
+              <md-input-container class="md-block" flex="auto">
+                <label>価格</label>
+                <input value="{{item.price | currency: '' :0}}" class="input-disabled-display" disabled/>
+              </md-input-container>
+              <div flex="5"></div>
         </div>
-        <div class="val">{{item.brand}}</div>
-    　</div>
-    </ons-list-item>
-    <ons-list-item>
-      <div class="prop-desc one-line">
-        <div class="icon">
-            <ons-icon icon="fa-jpy"></ons-icon>
+        <div layout="row">
+              <div flex="5"></div>
+              <md-input-container class="md-block" flex="auto">
+                <label>説明</label>
+                <textarea ng-model="item.text" rows="10" class="input-disabled-display" disabled></textarea>
+              </md-input-container>
+              <div flex="5"></div>
         </div>
-        <div class="val">{{item.price | currency: '' :0}}</div>
-      </div>
-    </ons-list-item>
-    <ons-list-item>
-      <div class="prop-desc multi-line">
-        <div class="icon">
-            <ons-icon icon="fa-sticky-note"></ons-icon>
+        <div layout="row">
+            <div flex="5"></div>
+            <fieldset class="standard" >
+              <legend>使用シーン</code></legend>
+              <div layout="row" layout-wrap flex>
+                <div flex="50" ng-repeat="category in plancategory">
+                  <md-checkbox ng-checked="plancategoryexists(category.categoryid)" ng-disabled="true">
+                    {{ category.name }}
+                  </md-checkbox>
+                </div>
+              </div>
+            </fieldset>
+            <div flex="5"></div>
         </div>
-        <div class="val">{{item.text}}</div>
-      </div>
-    </ons-list-item>
-  </ons-list>
+    </md-contents>
+    <md-button class="md-fab add-button" aria-label="Edit" ng-click="openEdit();">
+        <i class="zmdi zmdi-edit"></i>
+    </md-button>
+    <ons-bottom-toolbar modifier="nend">
+        <nend-ad-injector></nend-ad-injector>
+    </ons-bottom-toolbar>
 </ons-page>
 
 

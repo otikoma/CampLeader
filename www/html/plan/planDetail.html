@@ -54,6 +54,15 @@
                                 </md-input-container>
                               <div flex="5"></div>
                         </div>
+                        <div layout="row">
+                            <div flex="5"></div>
+                            <md-select ng-model="item.plancategory" disabled>
+                              <md-option ng-repeat="category in plancategory" value="{{category.categoryid}}">
+                                {{category.name}}
+                              </md-option>
+                            </md-select>
+                            <div flex="5"></div>
+                        </div>
                     </md-contents>
                 </md-tab-body>
             </md-tab>
@@ -109,6 +118,19 @@
                                     </md-menu-item>
                                   </md-menu-content>
                                 </md-menu>
+                            </md-list-item>
+                        </md-list>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="tab4">
+                <md-tab-label>持ち物</md-tab-label>
+                <md-tab-body>
+                    <md-content>
+                        <md-list>
+                            <md-list-item ng-repeat="gear in item.gears track by gear.gearid" modifier="chevron" ng-click="gear.selected = !gear.selected">
+                                <md-checkbox ng-model="gear.selected"></md-checkbox>
+                                <p>{{gear.name}}</p>
                             </md-list-item>
                         </md-list>
                     </md-content>

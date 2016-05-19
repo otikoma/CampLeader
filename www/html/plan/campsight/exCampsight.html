@@ -21,13 +21,13 @@
           </div>
         </md-toolbar>
     </ons-toolbar>
-    
+    <md-toolbar class="md-tall md-accent">
+        <div style="margin:auto;">合計金額　{{total()}}円</div>
+    </md-toolbar>
     <form name="form">
-        <md-contents>
+        <md-contents layout-padding>
         
-            <md-toolbar class="md-tall md-accent">
-                <div style="margin:auto;">合計金額　{{total()}}円</div>
-            </md-toolbar>
+
             <div layout="row">
                   <div flex="5"></div>
                   <md-input-container class="md-block" flex="auto">

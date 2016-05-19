@@ -24,6 +24,17 @@
                 ];
             
             return data;
+        }).factory('PlanCategory', function(){
+            var data = {};
+            data.items = [
+                    {"categoryid":"p01","name":"キャンプ"},
+                    {"categoryid":"p02","name":"デイキャンプ"},
+                    {"categoryid":"p03","name":"トレッキング"},
+                    {"categoryid":"p04","name":"登山"},
+                    {"categoryid":"p05","name":"ツーリング"},
+                    {"categoryid":"p06","name":"フィッシング"}
+                ];
+            return data;
         });
 
 // title : string タイトル

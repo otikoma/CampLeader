@@ -6,7 +6,6 @@
 </head>
 <body>
 <ons-page modifier="gear-details" ng-controller="GearEditController">
-<div class="main">
 <form name="form">
     <ons-toolbar modifier="transparent">
         <md-toolbar class="md-hue-2">
@@ -18,94 +17,90 @@
                     <span></span>
                 </h2>
                 <span flex></span>
-                <md-button class="md-icon-button" aria-label="Settings" ng-click="update();">
-                    <i class="zmdi zmdi-check"></i>
-                </md-button>
             </div>
         </md-toolbar>
     </ons-toolbar>
-    <div class="card edit-genre" ng-class="genreCls">
-    <div class="card-content">
-        <div class="flex">
-            <div class="genre-icon">
-                <ons-fab ng-click="showDialog();">
-                    <ons-ripple></ons-ripple>
-                    <img ng-src="{{genre.img}}" class="imgicon"/>
-                </ons-fab>
+    <md-toolbar ng-class="genreCls">
+        <div layout="row">
+            <md-button class="md-fab md-mini" aria-label="Favorite" ng-click="showDialog($event);">
+                <img ng-src="{{genre.img}}" class="imgicon-fab"/>
+            </md-button>
+            <h2 class="md-toolbar-tools md-toolbar-tools-bottom">
+                <span class="md-flex">{{genre.name}}</span>
+            </h2>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+    <md-contents layout-padding>
+        <div layout="row">
+              <div flex="5"></div>
+              <md-input-container class="md-block" flex="auto">
+                <label>品名</label>
+                <input ng-model="edititem.name" required/>
+              </md-input-container>
+              <div flex="5"></div>
+        </div>
+        <div layout="row">
+              <div flex="5"></div>
+              <md-input-container class="md-block" flex="auto">
+                <label>ブランド</label>
+                <input ng-model="edititem.brand"/>
+              </md-input-container>
+              <md-input-container class="md-block" flex="auto">
+                <label>価格</label>
+                <input type="number" ng-model="edititem.price"/>
+              </md-input-container>
+              <div flex="5"></div>
+        </div>
+        <div layout="row">
+              <div flex="5"></div>
+              <md-input-container class="md-block" flex="auto">
+                <label>説明</label>
+                <textarea ng-model="edititem.text" rows="10"></textarea>
+              </md-input-container>
+              <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+            <fieldset class="standard" >
+              <legend>使用シーン</code></legend>
+              <div layout="row" layout-wrap flex>
+                <div flex="50" ng-repeat="category in plancategory">
+                  <md-checkbox ng-checked="plancategoryexists(category.categoryid)" ng-click="plancategorytoggle(category.categoryid)">
+                    {{ category.name }}
+                  </md-checkbox>
+                </div>
+              </div>
+            </fieldset>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+              <div flex="5"></div>
+              <md-button class="md-raised md-primary" ng-click="openCamera();">写真を撮る</md-button>
+              <md-button class="md-raised md-primary" ng-click="openAlbum();">アルバム</md-button>
+              <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+            <div flex layout="row">
+                <img ng-repeat="imageItem in edititem.images track by imageItem.name" style="width:100px;height:100px;" ng-src="{{imageItem.src}}" 
+                    ng-class="{'checkedImage':imageItem.checked,'uncheckedImage':!imageItem.checked,'deleteImage':image.isdelete}" ng-click="imageItem.checked = !imageItem.checked"/>
             </div>
-            <div class="genre-val">{{genre.name}}</div>
+            <div flex="5"></div>
         </div>
-    </div>
-  </div>
-  <ons-list>
-    <ons-list-item>
-      <div class="prop-desc one-line">
-        <div class="icon">
+        <div layout="row">
+              <div flex="5"></div>
+              <md-button class="md-raised md-warn" ng-click="tempDeleteImage();">削除</md-button>
+              <div flex="5"></div>
         </div>
-        <div class="val">
-            <input type="text" ng-model="edititem.name" class="text-input text-input--transparent width100" placeholder="Product Title" required/>
+        <div layout="row">
+            <md-button class="md-raised md-accent btn-large" flex="auto" ng-click="update();" ng-disabled="form.$invalid">更新</md-button>
         </div>
-      </div>
-    </ons-list-item>
-    <ons-list-item>
-      <div class="prop-desc one-line">
-        <div class="icon">
-            <ons-icon icon="fa-building"></ons-icon>
-        </div>
-        <div class="val">
-            <input type="text" ng-model="edititem.brand" class="text-input text-input--transparent width100" placeholder="brand"/>
-        </div>
-    　</div>
-    </ons-list-item>
-    <ons-list-item>
-      <div class="prop-desc one-line">
-        <div class="icon">
-            <ons-icon icon="fa-jpy"></ons-icon>
-        </div>
-        <div class="val">
-            <input type="text" ng-model="edititem.price" class="text-input text-input--transparent width100" placeholder="Price"/>
-        </div>
-      </div>
-    </ons-list-item>
-    <ons-list-item>
-      <div class="prop-desc multi-line">
-        <div class="icon">
-            <ons-icon icon="fa-sticky-note"></ons-icon>
-        </div>
-        <div class="val">
-            <textarea ng-model="edititem.text" class="textarea textarea--transparent width100" rows="10" placeholder="Text"></textarea>
-        </div>
-      </div>
-    </ons-list-item>
-    <ons-list-item>
-      <div class="prop-desc">
-        <div class="icon">
-            <ons-icon icon="fa-file-image-o"></ons-icon>
-        </div>
-        <div class="val">
-            <div class="flex-container">
-                <ons-button modifier="material" class="default-dark" style="color:black" ng-click="openCamera();"><ons-icon icon="fa-camera-retro"></ons-icon><span style="margin-left:5px;">写真を撮る</span></ons-button>
-                <ons-button modifier="material" class="default-dark" style="color:black;margin-left:5px;" ng-click="openAlbum();"><ons-icon icon="fa-file-image-o"></ons-icon><span style="margin-left:5px;">アルバム</span></ons-button>
-            </div>
-            <div class="flex-container">
-                <img ng-repeat="image in edititem.images track by $index" ng-click="selectImage(image);" class="flex-item cover" ng-class="{'checkedImage':image.checked,'deleteImage':image.isdelete}" src="{{image.src}}">
-            </div>
-            <div class="flex-container">
-                <ons-button modifier="material" class="accent-color" style="color:black" ng-click="tempDeleteImage();"><ons-icon icon="fa-trash"></ons-icon><span style="margin-left:5px;">削除</span></ons-button>
-            </div>
-        </div>
-      </div>
-    </ons-list-item>
-  </ons-list>
+    </md-contents>
 </form>
-</div>
+    <ons-bottom-toolbar modifier="nend">
+        <nend-ad-injector></nend-ad-injector>
+    </ons-bottom-toolbar>
 </ons-page>
-
-
-
-
-<style>
-
-</style>
 </body>
 </html>

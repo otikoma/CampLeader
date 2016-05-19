@@ -23,7 +23,7 @@
         <div layout="row">
             <div flex="5"></div>
             <md-input-container class="md-block" flex="auto">
-                <label>title</label>
+                <label>イベント名</label>
                 <input ng-model="edititem.title" placeholder="title" required>
             </md-input-container>
             <div flex="5"></div>
@@ -31,11 +31,11 @@
         <div layout="row">
             <div flex="5"></div>
             <md-input-container class="md-block" flex="auto">
-                <label>datefrom</label>
+                <label>開始日</label>
                 <input type="date" ng-model="edititem.datefrom" placeholder="start date">
             </md-input-container>
             <md-input-container class="md-block" flex="auto">
-                <label>dateto</label>
+                <label>終了日</label>
                 <input type="date" ng-model="edititem.dateto" placeholder="end date" ng-min="edititem.datefrom">
             </md-input-container>
             <div flex="5"></div>
@@ -43,9 +43,18 @@
         <div layout="row">
             <div flex="5"></div>
             <md-input-container class="md-block" flex="auto">
-                <label>text</label>
+                <label>テキスト</label>
                 <textarea ng-model="edititem.text" md-maxlength="150" rows="5" id="text" ng-focus="jumpTo('text')"></textarea>
             </md-input-container>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+            <md-select ng-model="edititem.plancategory">
+              <md-option ng-repeat="category in plancategory" value="{{category.categoryid}}">
+                {{category.name}}
+              </md-option>
+            </md-select>
             <div flex="5"></div>
         </div>
         <div layout="row">

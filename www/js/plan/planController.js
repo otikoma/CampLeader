@@ -253,9 +253,11 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
             });
             $scope.isios = monaca.isIOS;
         });
-app.controller('PlanEditController', function($scope, $filter, $location,$timeout, $anchorScroll, PlanData) {
+app.controller('PlanEditController', function($scope, $filter, $location,$timeout, $anchorScroll, PlanData, PlanCategory, GearData) {
             $scope.item = PlanData.selectedItem;
             $scope.edititem = angular.copy($scope.item);
+            $scope.plancategory = PlanCategory.items;
+            $scope.gears = GearData.items;
             //日付変換    
             $scope.edititem.datefrom = new Date($scope.edititem.datefrom);
             $scope.edititem.dateto = new Date($scope.edititem.dateto);
@@ -268,6 +270,15 @@ app.controller('PlanEditController', function($scope, $filter, $location,$timeou
             };
             $scope.update = function() {
                 //データ登録
+                if($scope.edititem.gears === undefined) {
+                    $scope.edititem.gears = [];
+                    angular.forEach($scope.gears, function(gear) {
+                        if(gear.plancategory.indexOf($scope.edititem.plancategory) >= 0) {
+                            gear.selected = false;
+                            $scope.edititem.gears.push(gear);
+                        }
+                    });
+                }
                 var olditems = PlanData.items;
                 var b = false;
                 angular.forEach(olditems, function(item) {
@@ -354,7 +365,7 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
         $controller('PlanEditController', {$scope: $scope}); //This works
         $scope.expense = PlanData.selectedExpence;
         $scope.total = function() {
-            return Math.ceil($scope.expense.datas.car + $scope.getGasTotal() + ($scope.expense.datas.highway_outward + $scope.expense.datas.highway_homeward));
+            return Math.ceil(1 * $scope.expense.datas.car + $scope.getGasTotal() + (1 * $scope.expense.datas.highway_outward + $scope.expense.datas.highway_homeward));
         }
         //ガソリン代合計
         $scope.getGasTotal = function() {
