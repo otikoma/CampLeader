@@ -60,10 +60,11 @@ app.controller('PlanListController', function($mdDialog, $scope, $filter, PlanDa
             });
             $scope.isios = monaca.isIOS;
         });
-app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdMedia, PlanData, ExpenseCategory) {
+app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdMedia, PlanData, PlanCategory, ExpenseCategory, GearData) {
             $scope.item = PlanData.selectedItem;
             $scope.exCategory = ExpenseCategory.items;
             $scope.selectedIndex = 0;
+            $scope.plancategory = PlanCategory.items;
             $scope.getSchedulesDate = function(date) {
                 var start = new Date(date);
                 var end = new Date(date);
@@ -79,6 +80,9 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
                 schedules = $filter("orderBy")(schedules, "timefrom");
                 return schedules;
             }
+            $scope.getGear = function(gearid) {
+                return $filter("filter")(GearData.items, {"gearid" : gearid})[0];
+            }
             //編集・追加ボタン押下
             $scope.openEdit = function(ev) {
                 if($scope.selectedIndex === 0) {
@@ -87,6 +91,8 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
                     $scope.openAddSchedule();
                 } else if($scope.selectedIndex === 2) {
                     $scope.showDialog();
+                } else if($scope.selectedIndex === 3) {
+                    $scope.openSetGears();
                 }
             }
             //予定の追加
@@ -142,6 +148,9 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
                 };
                 app.navi.pushPage('html/plan/otherex/exOther.html');
                 $scope.hideDialog();
+            }
+            $scope.openSetGears = function() {
+                app.navi.pushPage('html/plan/belongings/setBelongings.html');
             }
             //アイコン画像取得
             $scope.getIcon = function(categoryid) {
@@ -251,7 +260,6 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
                 $scope.item = PlanData.selectedItem;
                 $scope.$apply();
             });
-            $scope.isios = monaca.isIOS;
         });
 app.controller('PlanEditController', function($scope, $filter, $location,$timeout, $anchorScroll, PlanData, PlanCategory, GearData) {
             $scope.item = PlanData.selectedItem;
@@ -275,7 +283,7 @@ app.controller('PlanEditController', function($scope, $filter, $location,$timeou
                     angular.forEach($scope.gears, function(gear) {
                         if(gear.plancategory.indexOf($scope.edititem.plancategory) >= 0) {
                             gear.selected = false;
-                            $scope.edititem.gears.push(gear);
+                            $scope.edititem.gears.push({"gearid":gear.gearid,"selected":false});
                         }
                     });
                 }
@@ -339,6 +347,62 @@ app.controller('ScheduleEditController', function($scope, $controller, $filter, 
                 idx++;
             }
 });
+
+app.controller('BelongingsController', function($scope, $controller, $filter, PlanData, GearGenre, GearData) {
+        $controller('PlanEditController', {$scope: $scope}); //This works
+        $scope.genres = GearGenre.items;
+        $scope.items = GearData.items;
+        $scope.selectedGear = $scope.edititem.gears;
+        
+        $scope.getGenres = function() {
+            if($scope.serachGenre && $scope.serachGenre.length > 0) {
+                return $filter("filter")($scope.genres, {"genreid" : $scope.serachGenre});
+            } else {
+                return $scope.genres;
+            }
+        }
+        $scope.getItems = function(genreid) {
+            var items = $filter("filter")($scope.items, {"genreid" : genreid});
+            return items;
+        };
+        $scope.isChecked = function(gearid) {
+            for(var i=0; i < $scope.selectedGear.length; i++) {
+                var selectedGear = $scope.selectedGear[i];
+                if(selectedGear.gearid === gearid) {
+                    return true;
+                }
+            }
+            return false;
+        };
+        $scope.change = function(gearid) {
+            var index = -1;
+            angular.forEach($scope.selectedGear, function(gear, i) {
+                if(gearid === gear.gearid) {
+                    index = i;
+                }
+            });
+            if(index < 0) {
+                $scope.selectedGear.push({"gearid":gearid,"selected":false});
+            }else{
+                $scope.selectedGear.splice(index, 1);
+            }
+        }
+        app.navi.on("prepop", function() {
+            $scope.edititem.gears = $scope.selectedGear;
+            var olditems = PlanData.items;
+            var b = false;
+            angular.forEach(olditems, function(item) {
+                if ($scope.edititem.planid === item.planid) {
+                    var index = PlanData.items.indexOf(item);
+                    PlanData.items.splice(index, 1);
+                }
+            });
+            PlanData.items.push($scope.edititem);
+            PlanData.selectedItem = $scope.edititem;
+            saveStrageData('PlanData', PlanData.items);
+        });
+});
+
 app.controller('ExpenseCampsightController', function($scope, $controller, PlanData) {
         $controller('PlanEditController', {$scope: $scope}); //This works
         $scope.expense = PlanData.selectedExpence;
@@ -399,7 +463,7 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
         $scope.showDialog = function(ev,func) {
             $mdDialog.show({
                 controller: DialogController,
-                templateUrl: 'html/plan/move/searchHighway.html',
+                templateUrl: 'html/plan/move/searchHighwayDialog.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose:true,
@@ -478,31 +542,53 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
             $scope.getStartSuggest = function() {
                 var param = { f: $scope.startIc, t: "渋", c:'普通車' };
                 $scope.post(param, function(data) {
-                    var status = data.Result.Status;
+                if(data.Result.FromICs != undefined) {
                     if(Array.isArray(data.Result.FromICs.IC)) {
                         $scope.startSuggest = data.Result.FromICs.IC;
                     } else {
                         $scope.startSuggest = [data.Result.FromICs.IC];
                     }
+                } else {
+                    $scope.startSuggest = [];
+                }
                 });
             }
             $scope.getEndSuggest = function() {
                 var param = { f: "渋", t: $scope.endIc, c:'普通車' };
                 $scope.post(param, function(data) {
-                    var status = data.Result.Status;
-                    if(Array.isArray(data.Result.ToICs.IC)) {
-                        $scope.endSuggest = data.Result.ToICs.IC;
-                    } else {
-                        $scope.endSuggest = [data.Result.ToICs.IC];
+                    if(!data.Result.ToICs != undefined) {
+                        if(Array.isArray(data.Result.ToICs.IC)) {
+                            $scope.endSuggest = data.Result.ToICs.IC;
+                        } else {
+                            $scope.endSuggest = [data.Result.ToICs.IC];
+                        }
+                    }else {
+                        $scope.endSuggest = [];
                     }
                 });
             }
             $scope.search = function() {
+                blur();
                 var param = { f: $scope.startIc, t: $scope.endIc, c:'普通車' }
                 $scope.post(param, function(data) {
                     var status = data.Result.Status;
-                    if("NotEnd" === status) {
+                    if(status === undefined) {
+                        var msg = "";
+                        if($scope.startSuggest.length === 0) {
+                            msg = "出発ICが存在しません\n"
+                        }
+                        if($scope.endSuggest.length === 0) {
+                            msg = msg + "到着ICが存在しません"
+                        }
+                        alert(msg);
+                        $scope.routes = [];
+                        $scope.routeIndex = 0;
+                        $scope.routesShow = [];
+                    }else if("NotEnd" === status) {
                         alert("経路が見つかりませんでした");
+                        $scope.routes = [];
+                        $scope.routeIndex = 0;
+                        $scope.routesShow = [];
                     } else if("End" === status){
                         $scope.routes =  data.Result.Routes.Route;
                         $scope.routeIndex = 0;
@@ -512,6 +598,7 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
                 });
             }
             $scope.post = function(param, successCallback) {
+                $scope.error=false;
                 // 1サーバーに対してHTTP POSTでリクエストを送信
                 var startic = $scope.startIc;
                 var endic = $scope.endIc;
@@ -535,7 +622,7 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
                 })
                 // 失敗時の処理
                 .error(function(data, status, headers, config){
-                    alert("ERROR");
+                    $scope.error=true;
                     $scope.result = '通信失敗！';
                 });
             }
@@ -561,3 +648,136 @@ app.controller('ExpenseOtherController', function($scope, $controller, PlanData)
         }
 });
 
+app.controller('SearchHighwayController', function($scope, $mdDialog,  $filter, $http, $httpParamSerializerJQLike) {
+
+        $scope.startSuggest = [];
+        $scope.endSuggest = [];
+        $scope.routes = [];
+        $scope.routeIndex = 0;
+        $scope.routesShow = [];
+        var x2js = new X2JS();
+        $scope.getRoute = function() {
+            var idx = $scope.routeIndex;
+            for(var i = idx; i < $scope.routes.length && i < idx + 3; i++) {
+                //select初期値
+                var sectionArr = $scope.comvartArray($scope.routes[i].Details.Section);
+                angular.forEach(sectionArr, function(section) {
+                    var tollArr = $scope.comvartArray(section.Tolls.Toll)
+                    section.radioval = $scope.getTollVal(tollArr[0]);
+                });
+                $scope.routesShow.push($scope.routes[i]);
+                $scope.routeIndex++;
+
+            }
+        }
+        $scope.comvartArray = function(obj) {
+            if(Array.isArray(obj)) {
+                return obj;
+            }else {
+                var arr = new Array();
+                arr.push(obj);
+                return arr;
+            }
+        }
+        $scope.getTollVal = function(toll) {
+            var num = toll.match(/^[0-9]+/);
+            return 1 * num;
+        }
+        $scope.getTollTotal = function(route) {
+            var total = 0;
+            var sectionArr = $scope.comvartArray(route.Details.Section);
+            angular.forEach(sectionArr, function(section) {
+                total += 1 * section.radioval;
+            });
+            return total;
+        }
+        $scope.getStartSuggest = function() {
+            var param = { f: $scope.startIc, t: "渋", c:'普通車' };
+            $scope.post(param, function(data) {
+                var status = data.Result.Status;
+                if(status != undefined) {
+                    if(Array.isArray(data.Result.FromICs.IC)) {
+                        $scope.startSuggest = data.Result.FromICs.IC;
+                    } else {
+                        $scope.startSuggest = [data.Result.FromICs.IC];
+                    }
+                } else {
+                    $scope.startSuggest = [];
+                }
+            });
+        }
+        $scope.getEndSuggest = function() {
+            var param = { f: "渋", t: $scope.endIc, c:'普通車' };
+            $scope.post(param, function(data) {
+                var status = data.Result.Status;
+                if(status != undefined) {
+                    if(Array.isArray(data.Result.ToICs.IC)) {
+                        $scope.endSuggest = data.Result.ToICs.IC;
+                    } else {
+                        $scope.endSuggest = [data.Result.ToICs.IC];
+                    }
+                } else {
+                    $scope.endSuggest = [];
+                }
+            });
+        }
+        $scope.search = function() {
+            blur();
+            var param = { f: $scope.startIc, t: $scope.endIc, c:'普通車' }
+            $scope.post(param, function(data) {
+                var status = data.Result.Status;
+                if(status === undefined) {
+                    var msg = "";
+                    if($scope.startSuggest.length === 0) {
+                        msg = "出発ICが存在しません\n"
+                    }
+                    if($scope.endSuggest.length === 0) {
+                        msg = msg + "到着ICが存在しません"
+                    }
+                    alert(msg);
+                    $scope.routes = [];
+                    $scope.routeIndex = 0;
+                    $scope.routesShow = [];
+                }else if("NotEnd" === status) {
+                    alert("経路が見つかりませんでした");
+                    $scope.routes = [];
+                    $scope.routeIndex = 0;
+                    $scope.routesShow = [];
+                } else if("End" === status){
+                    $scope.routes =  data.Result.Routes.Route;
+                    $scope.routeIndex = 0;
+                    $scope.routesShow = [];
+                    $scope.getRoute();
+                }
+            });
+        }
+        $scope.post = function(param, successCallback) {
+            // 1サーバーに対してHTTP POSTでリクエストを送信
+            $scope.error=false;
+            var startic = $scope.startIc;
+            var endic = $scope.endIc;
+            
+            $http({
+                method: 'POST',
+                headers: {
+                    // 1リクエストヘッダーを設定
+                    'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8'
+                },
+                // 2リクエストデータをjQueryと同様の形式で送信
+                transformRequest: $httpParamSerializerJQLike,
+                url: 'http://kosoku.jp/api/route.php',
+                data: param
+            })
+            // 成功時の処理
+            .success(function(data, status, headers, config){
+                var dat =  x2js.xml_str2json(data);
+                $scope.result = dat;
+                successCallback(dat);
+            })
+            // 失敗時の処理
+            .error(function(data, status, headers, config){
+                $scope.error=true;
+                $scope.result = '通信失敗！';
+            });
+        }
+});

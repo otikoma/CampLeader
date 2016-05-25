@@ -19,7 +19,7 @@
                     {"genreid":"g005","name":"ファニチャー", "img":"images/camp-icons/table.png","cls":"cls-teal"},
                     {"genreid":"g006","name":"調理・食器", "img":"images/camp-icons/pot-on-fire.png","cls":"cls-deeporange"},
                     {"genreid":"g007","name":"ウェアー", "img":"images/camp-icons/vest.png","cls":"cls-blue"},
-                    {"genreid":"g008","name":"靴", "img":"images/camp-icons/dr-mateen-boot.png","cls":"cls-brown"},
+                    {"genreid":"g008","name":"シューズ", "img":"images/camp-icons/dr-mateen-boot.png","cls":"cls-brown"},
                     {"genreid":"g009","name":"バックパック", "img":"images/camp-icons/bagpack.png","cls":"cls-purple"},
                     {"genreid":"g010","name":"アクセサリ", "img":"images/camp-icons/orientation.png","cls":"cls-red"},
                     {"genreid":"g011","name":"衛生用品", "img":"images/camp-icons/healthcare.png","cls":"cls-lightblue"}

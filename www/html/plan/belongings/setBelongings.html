@@ -2,19 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <script>
-    </script>
 </head>
 <body>
-<ons-page ng-controller="GearListController">
+<ons-page ng-controller="BelongingsController">
     <ons-toolbar class="search">
         <md-toolbar class="md-hue-2">
           <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" aria-label="Settings" ng-click="app.slidingMenu.toggleMenu()">
-                <i class="zmdi zmdi-menu"></i>
-            </md-button>
+                <md-button class="md-icon-button" aria-label="Settings" ng-click="app.navi.popPage()">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                </md-button>
             <h2>
-              <span>アウトドア道具</span>
+              <span>持ち物選択</span>
             </h2>
             <span flex></span>
           </div>
@@ -40,28 +38,15 @@
                 <img ng-src="{{genre.img}}" class="imgicon"/>
                 <span>{{genre.name}}</span>
             </md-subheader>
-            <md-list-item ng-repeat-end class="md-2-line" ng-repeat="item in getItems(genre.genreid) track by item.gearid | orderBy: 'name'" ng-click="openDetail(item.gearid);">
-                <img ng-src="{{getImage(item)}}" class="md-avatar"/>
+            <md-list-item ng-repeat-end class="md-2-line" ng-repeat="item in getItems(genre.genreid) track by item.gearid | orderBy: 'name'" ng-click="change(item.gearid)">
+                <md-checkbox ng-checked="isChecked(item.gearid)" ng-click="change(item.gearid)"></md-checkbox>
                 <div class="md-list-item-text" layout="column">
                     <h3>{{item.name}}</h3>
                     <p>{{item.maker}}</p>
                 </div>
-                <md-menu md-offset="0 -7">
-                  <md-button  class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                    <i class="zmdi zmdi-more-vert"></i>
-                  </md-button>
-                  <md-menu-content width="2">
-                    <md-menu-item>
-                      <md-button ng-click="delete(item.gearid)"> <span md-menu-align-target>削除</span></md-button>
-                    </md-menu-item>
-                  </md-menu-content>
-                </md-menu>
             </md-list-item>
         </md-list>
     </md-contents>
-    <md-button class="md-fab add-button" ng-click="openEdit();">
-        <ons-icon icon="fa-plus"></ons-icon>
-    </md-button>
 </ons-page>
 <ons-bottom-toolbar modifier="nend">
     <nend-ad-injector></nend-ad-injector>
