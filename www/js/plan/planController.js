@@ -60,7 +60,7 @@ app.controller('PlanListController', function($mdDialog, $scope, $filter, PlanDa
             });
             $scope.isios = monaca.isIOS;
         });
-app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdMedia, PlanData, PlanCategory, ExpenseCategory, GearData) {
+app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdMedia, PlanData, PlanCategory, ExpenseCategory, GearData, SettingData) {
             $scope.item = PlanData.selectedItem;
             $scope.exCategory = ExpenseCategory.items;
             $scope.selectedIndex = 0;
@@ -134,7 +134,7 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
             //交通費入力
             $scope.openAddExMoving = function() {
                 PlanData.selectedExpence = {"expenseid" : createId('EX'), "category" : "e02","total": 0,"datas": {
-                        "car":"","fuel_consumption": "", "gasoline_price" : "", "distance" : "", "highway_outward" : "", "highway_homeward" : ""
+                        "car":"","fuel_consumption": SettingData.items.fuel_consumption, "gasoline_price" : SettingData.items.gasoline_price, "distance" : "", "highway_outward" : "", "highway_homeward" : ""
                     }
                 };
                 app.navi.pushPage('html/plan/move/exMoving.html');
