@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script>
+        //
+        // TODO: Write JavaScript code here
+        //
+    </script>
+</head>
+<body>
+<ons-page ng-controller="SettingController">
+    <ons-toolbar modifier="transparent">
+        <md-toolbar class="md-hue-2">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings" ng-click="app.slidingMenu.toggleMenu()">
+                    <i class="zmdi zmdi-menu"></i>
+                </md-button>
+                <h2>
+                    <span>設定</span>
+                </h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+  </ons-toolbar>
+  <form name="form">
+    <md-contents class="layout-padding">
+        <div layout="row">
+            <div flex="5"></div>
+            <h1 flex class="md-title">デフォルト設定</h1>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+            <md-input-container class="md-block" flex="auto">
+                <label>燃費（km/ℓ）</label>
+                <input type="number"  ng-model="setting.fuel_consumption">
+            </md-input-container>
+            <md-input-container class="md-block" flex="auto">
+                <label>ガソリン価格（ℓ）</label>
+                <input type="number"  ng-model="setting.gasoline_price">
+            </md-input-container>
+            <div flex="5"></div>
+        </div>
+
+        <div layout="row">
+            <md-button class="md-raised md-accent btn-large" flex="auto" ng-click="update();" ng-disabled="form.$invalid">更新</md-button>
+        </div>
+    </md-contents>
+   </form>
+    <ons-bottom-toolbar modifier="nend">
+        <nend-ad-injector></nend-ad-injector>
+    </ons-bottom-toolbar>
+</ons-page>
+
+</body>
+</html>
