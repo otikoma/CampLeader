@@ -1,0 +1,68 @@
+<md-dialog  ng-cloak>
+    <md-toolbar class="md-hue-2">
+        <div class="md-toolbar-tools">
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <i class="zmdi zmdi-close"></i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <md-contents class="layout-padding">
+            <div layout="row">
+                <div flex="5"></div>
+                <md-input-container class="md-block" flex="auto">
+                    <label>出発IC</label>
+                    <input type="text" ng-model="startIc" ng-change="getStartSuggest()" autocomplete="on" list="staretIC"/>
+                    <datalist id="staretIC">
+                        <option ng-repeat="suggest in startSuggest" value="{{suggest}}"/>
+                    </datalist>
+                </md-input-container>
+                <div flex="5"></div>
+            </div>
+            <div layout="row">
+                <div flex="5"></div>
+                <md-input-container class="md-block" flex="auto">
+                    <label>到着IC</label>
+                    <input type="text" ng-model="endIc" ng-change="getEndSuggest()" autocomplete="on" list="endIc"/>
+                    <datalist id="endIc">
+                        <option ng-repeat="suggest in endSuggest" value="{{suggest}}"/>
+                    </datalist>
+                </md-input-container>
+                <div flex="5"></div>
+            </div>
+            <md-button class="md-raised md-primary" ng-click="search()">検索</md-button>
+        </md-contents>
+        <md-content class="md-padding" layout="column">
+            <p ng-show="error" ng-init="error=false">通信エラー</p>
+            <form ng-repeat="(i, route) in routesShow track by route.RouteNo" ng-init="route.Details.show=false">
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">経路{{1 * route.RouteNo + 1}}</span>
+                            <span class="md-subhead">料金：{{getTollTotal(route)}}　円</span>
+                            <span class="md-subhead">所要時間：{{route.Summary.TotalTime}}　分</span>
+                            <span class="md-subhead">距離：{{route.Summary.TotalLength}}　km</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-actions layout="column" layout-align="start">
+                        <md-button ng-click="route.Details.show = !route.Details.show">詳細</md-button>
+                     </md-card-actions>
+                    <md-card-content ng-show="route.Details.show" ng-thema="bg-indigo">
+                        <div layout="row" ng-repeat="(j, section) in comvartArray(route.Details.Section) track by section.Order" class="row">
+                            <div flex="40">{{section.From}}<br/> ↓ <br/>{{section.To}}</div>
+                            <div flex="60">
+                                <md-radio-group ng-model="section.radioval">
+                                  <md-radio-button class="md-primary" ng-repeat="(k, toll) in comvartArray(section.Tolls.Toll)" value="{{getTollVal(toll)}}">{{toll}}</md-radio-button>
+                                </md-radio-group>
+                            </div>
+                        </div>
+                    </md-card-content>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button ng-click="answer(getTollTotal(route))" class="md-raised md-primary">設定</md-button>
+                    </md-card-actions>
+                </md-card>
+            </form>
+        </md-content>
+    </md-dialog-content>
+</md-dialog>
