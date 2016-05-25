@@ -1,13 +1,24 @@
-<md-dialog  ng-cloak>
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+</script>
+</head>
+<body>
+
+<ons-page modifier="plan-details" ng-controller="SearchHighwayController">
     <md-toolbar class="md-hue-2">
         <div class="md-toolbar-tools">
-            <span flex></span>
-            <md-button class="md-icon-button" ng-click="cancel()">
-                <i class="zmdi zmdi-close"></i>
+            <md-button class="md-icon-button" aria-label="Settings" ng-click="app.slidingMenu.toggleMenu()">
+                <i class="zmdi zmdi-menu"></i>
             </md-button>
+            <h2>
+                <span>高速道路検索</span>
+            </h2>
+            <span flex></span>
         </div>
     </md-toolbar>
-    <md-dialog-content>
+    <md-content>
         <md-contents class="layout-padding">
             <div layout="row">
                 <div flex="5"></div>
@@ -34,6 +45,7 @@
             <md-button class="md-raised md-primary" ng-click="search()">検索</md-button>
         </md-contents>
         <md-content class="md-padding" layout="column">
+            <p ng-show="error" ng-init="error=false">通信エラー</p>
             <form ng-repeat="(i, route) in routesShow track by route.RouteNo" ng-init="route.Details.show=false">
                 <md-card>
                     <md-card-title>
@@ -58,10 +70,9 @@
                         </div>
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button ng-click="answer(getTollTotal(route))" class="md-raised md-primary">設定</md-button>
                     </md-card-actions>
                 </md-card>
             </form>
         </md-content>
-    </md-dialog-content>
-</md-dialog>
+    </md-content>
+</ons-page>

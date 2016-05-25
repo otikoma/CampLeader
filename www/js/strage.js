@@ -37,22 +37,3 @@ function createId(prefix, suffix) {
     var n = d.getTime();
     return prefix + n + suffix;
 }
-// ///// Add memo
-// function addMemo(text) {
-//   var list = getMemoList();
-//   var time = new Date().getTime();
-//   list.push({ id: time, time: time, text: text });
-//   saveMemoList(list);
-// }
-// 
-// ///// Delete specified memo
-// function deleteMemo(id) {
-//     var list = getMemoList();
-//     for (var i in list) {
-//         if (list[i].id == id) {
-//             list.splice(i, 1);
-//             break;  // Quit for loop when found
-//         }
-//     }
-//     saveMemoList(list);
-// }
