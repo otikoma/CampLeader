@@ -21,7 +21,7 @@
             </div>
         </md-toolbar>
     </ons-toolbar>
-        <md-tabs class="md-accent" md-align-tabs="top" md-selected="selectedIndex">
+        <md-tabs class="md-accent" md-align-tabs="top" md-selected="selectedIndex" md-swipe-content>
             <md-tab id="tab1">
                 <md-tab-label>概要</md-tab-label>
                 <md-tab-body>
@@ -29,7 +29,7 @@
                         <div layout="row">
                               <div flex="5"></div>
                               <md-input-container class="md-block" flex="auto">
-                                <label>title</label>
+                                <label>イベント名</label>
                                 <input class="input-disabled-display" ng-model="item.title" disabled>
                               </md-input-container>
                               <div flex="5"></div>
@@ -37,11 +37,11 @@
                         <div layout="row">
                               <div flex="5"></div>
                               <md-input-container class="md-block" flex="auto">
-                                <label>datefrom</label>
+                                <label>開始日</label>
                                 <input type="date" class="input-disabled-display" ng-model="item.datefrom" disabled>
                               </md-input-container>
                               <md-input-container class="md-block" flex="auto">
-                                <label>dateto</label>
+                                <label>終了日</label>
                                 <input type="date" class="input-disabled-display" ng-model="item.dateto" disabled>
                               </md-input-container>
                               <div flex="5"></div>
@@ -49,7 +49,7 @@
                         <div layout="row">
                               <div flex="5"></div>
                                 <md-input-container class="md-block" flex="auto">
-                                  <label>text</label>
+                                  <label>テキスト</label>
                                   <textarea class="input-disabled-display" ng-model="item.text" md-select-on-focus disabled></textarea>
                                 </md-input-container>
                               <div flex="5"></div>
@@ -105,7 +105,7 @@
                             <md-list-item class="md-2-line"ng-repeat="expense in item.expenses track by expense.expenseid" modifier="chevron" ng-click="openEditExpense(expense.expenseid);">
                                 <img alt="logo" ng-src="{{getIcon(expense.category)}}" class="md-avatar" />
                                 <div class="md-list-item-text">
-                                    <h3>{{expense.expenseid}}</h3>
+                                    <h3>{{getExTitle(expense)}}</h3>
                                     <p>{{expense.total}}</p>
                                 </div>
                                 <md-menu md-offset="0 -7">

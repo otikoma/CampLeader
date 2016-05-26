@@ -83,6 +83,16 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
             $scope.getGear = function(gearid) {
                 return $filter("filter")(GearData.items, {"gearid" : gearid})[0];
             }
+            $scope.getExTitle = function(expense) {
+                    if(expense.category === "e01") {
+                        return "キャンプ場";
+                    } else if(expense.category === "e02") {
+                        return "移動費";
+                    } else if(expense.category === "e04") {
+                        return expense.datas.title;
+                    }
+                
+            }
             //編集・追加ボタン押下
             $scope.openEdit = function(ev) {
                 if($scope.selectedIndex === 0) {
@@ -256,6 +266,10 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
                 PlanData.selectedItem = $scope.item;
                 saveStrageData('PlanData', PlanData.items);
             }
+            $scope.toggleCheck = function(gear) {
+                gearitem.selected = !gearitem.selected;
+                $scope.update();
+            }
             app.navi.on("postpop", function() {
                 $scope.item = PlanData.selectedItem;
                 $scope.$apply();
@@ -388,18 +402,20 @@ app.controller('BelongingsController', function($scope, $controller, $filter, Pl
             }
         }
         app.navi.on("prepop", function() {
-            $scope.edititem.gears = $scope.selectedGear;
-            var olditems = PlanData.items;
-            var b = false;
-            angular.forEach(olditems, function(item) {
-                if ($scope.edititem.planid === item.planid) {
-                    var index = PlanData.items.indexOf(item);
-                    PlanData.items.splice(index, 1);
-                }
-            });
-            PlanData.items.push($scope.edititem);
-            PlanData.selectedItem = $scope.edititem;
-            saveStrageData('PlanData', PlanData.items);
+            if(event.leavePage.page === "html/plan/belongings/setBelongings.html") {
+                $scope.edititem.gears = $scope.selectedGear;
+                var olditems = PlanData.items;
+                var b = false;
+                angular.forEach(olditems, function(item) {
+                    if ($scope.edititem.planid === item.planid) {
+                        var index = PlanData.items.indexOf(item);
+                        PlanData.items.splice(index, 1);
+                    }
+                });
+                PlanData.items.push($scope.edititem);
+                PlanData.selectedItem = $scope.edititem;
+                saveStrageData('PlanData', PlanData.items);
+            }
         });
 });
 
@@ -429,7 +445,7 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
         $controller('PlanEditController', {$scope: $scope}); //This works
         $scope.expense = PlanData.selectedExpence;
         $scope.total = function() {
-            return Math.ceil(1 * $scope.expense.datas.car + $scope.getGasTotal() + (1 * $scope.expense.datas.highway_outward + $scope.expense.datas.highway_homeward));
+            return Math.ceil(1*$scope.expense.datas.car + 1*$scope.getGasTotal() + (1*$scope.expense.datas.highway_outward + 1*$scope.expense.datas.highway_homeward));
         }
         //ガソリン代合計
         $scope.getGasTotal = function() {
@@ -541,7 +557,7 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
             }
             $scope.getStartSuggest = function() {
                 var param = { f: $scope.startIc, t: "渋", c:'普通車' };
-                $scope.post(param, function(data) {
+                post($scope, param, function(data) {
                 if(data.Result.FromICs != undefined) {
                     if(Array.isArray(data.Result.FromICs.IC)) {
                         $scope.startSuggest = data.Result.FromICs.IC;
@@ -555,7 +571,7 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
             }
             $scope.getEndSuggest = function() {
                 var param = { f: "渋", t: $scope.endIc, c:'普通車' };
-                $scope.post(param, function(data) {
+                post($scope, param, function(data) {
                     if(!data.Result.ToICs != undefined) {
                         if(Array.isArray(data.Result.ToICs.IC)) {
                             $scope.endSuggest = data.Result.ToICs.IC;
@@ -570,7 +586,7 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
             $scope.search = function() {
                 blur();
                 var param = { f: $scope.startIc, t: $scope.endIc, c:'普通車' }
-                $scope.post(param, function(data) {
+                post($scope, param, function(data) {
                     var status = data.Result.Status;
                     if(status === undefined) {
                         var msg = "";
@@ -595,35 +611,6 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
                         $scope.routesShow = [];
                         $scope.getRoute();
                     }
-                });
-            }
-            $scope.post = function(param, successCallback) {
-                $scope.error=false;
-                // 1サーバーに対してHTTP POSTでリクエストを送信
-                var startic = $scope.startIc;
-                var endic = $scope.endIc;
-                
-                $http({
-                    method: 'POST',
-                    headers: {
-                        // 1リクエストヘッダーを設定
-                        'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8'
-                    },
-                    // 2リクエストデータをjQueryと同様の形式で送信
-                    transformRequest: $httpParamSerializerJQLike,
-                    url: 'http://kosoku.jp/api/route.php',
-                    data: param
-                })
-                // 成功時の処理
-                .success(function(data, status, headers, config){
-                    var dat =  x2js.xml_str2json(data);
-                    $scope.result = dat;
-                    successCallback(dat);
-                })
-                // 失敗時の処理
-                .error(function(data, status, headers, config){
-                    $scope.error=true;
-                    $scope.result = '通信失敗！';
                 });
             }
         };
@@ -693,7 +680,7 @@ app.controller('SearchHighwayController', function($scope, $mdDialog,  $filter, 
         }
         $scope.getStartSuggest = function() {
             var param = { f: $scope.startIc, t: "渋", c:'普通車' };
-            $scope.post(param, function(data) {
+            post($scope, param, function(data) {
                 var status = data.Result.Status;
                 if(status != undefined) {
                     if(Array.isArray(data.Result.FromICs.IC)) {
@@ -708,7 +695,7 @@ app.controller('SearchHighwayController', function($scope, $mdDialog,  $filter, 
         }
         $scope.getEndSuggest = function() {
             var param = { f: "渋", t: $scope.endIc, c:'普通車' };
-            $scope.post(param, function(data) {
+            post($scope, param, function(data) {
                 var status = data.Result.Status;
                 if(status != undefined) {
                     if(Array.isArray(data.Result.ToICs.IC)) {
@@ -724,7 +711,7 @@ app.controller('SearchHighwayController', function($scope, $mdDialog,  $filter, 
         $scope.search = function() {
             blur();
             var param = { f: $scope.startIc, t: $scope.endIc, c:'普通車' }
-            $scope.post(param, function(data) {
+            post($scope, param, function(data) {
                 var status = data.Result.Status;
                 if(status === undefined) {
                     var msg = "";
@@ -751,33 +738,33 @@ app.controller('SearchHighwayController', function($scope, $mdDialog,  $filter, 
                 }
             });
         }
-        $scope.post = function(param, successCallback) {
-            // 1サーバーに対してHTTP POSTでリクエストを送信
-            $scope.error=false;
-            var startic = $scope.startIc;
-            var endic = $scope.endIc;
-            
-            $http({
-                method: 'POST',
-                headers: {
-                    // 1リクエストヘッダーを設定
-                    'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8'
-                },
-                // 2リクエストデータをjQueryと同様の形式で送信
-                transformRequest: $httpParamSerializerJQLike,
-                url: 'http://kosoku.jp/api/route.php',
-                data: param
-            })
-            // 成功時の処理
-            .success(function(data, status, headers, config){
-                var dat =  x2js.xml_str2json(data);
-                $scope.result = dat;
-                successCallback(dat);
-            })
-            // 失敗時の処理
-            .error(function(data, status, headers, config){
-                $scope.error=true;
-                $scope.result = '通信失敗！';
-            });
-        }
 });
+function post($scope, param, successCallback) {
+    // 1サーバーに対してHTTP POSTでリクエストを送信
+    $scope.error=false;
+    var startic = $scope.startIc;
+    var endic = $scope.endIc;
+    
+    $http({
+        method: 'POST',
+        headers: {
+            // 1リクエストヘッダーを設定
+            'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8'
+        },
+        // 2リクエストデータをjQueryと同様の形式で送信
+        transformRequest: $httpParamSerializerJQLike,
+        url: 'http://kosoku.jp/api/route.php',
+        data: param
+    })
+    // 成功時の処理
+    .success(function(data, status, headers, config){
+        var dat =  x2js.xml_str2json(data);
+        $scope.result = dat;
+        successCallback(dat);
+    })
+    // 失敗時の処理
+    .error(function(data, status, headers, config){
+        $scope.error=true;
+        $scope.result = '通信失敗！';
+    });
+}

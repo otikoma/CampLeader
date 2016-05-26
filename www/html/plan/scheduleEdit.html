@@ -28,7 +28,7 @@
         <div layout="row">
               <div flex="5"></div>
               <md-input-container class="md-block" flex="auto">
-                <label>title</label>
+                <label>タイトル</label>
                 <input ng-model="editSchedule.title" required>
               </md-input-container>
               <div flex="5"></div>
@@ -36,7 +36,7 @@
         <div layout="row">
               <div flex="5"></div>
               <md-input-container class="md-block" flex="auto">
-                <label>date</label>
+                <label>日付</label>
                 <md-select ng-model="selectDate" required>
                     <md-option ng-repeat="date in dates" value="{{date}}">{{date}}</md-option>
                 </md-select>
@@ -46,11 +46,11 @@
         <div layout="row">
               <div flex="5"></div>
               <md-input-container class="md-block" flex="auto">
-                <label>start time</label>
+                <label>開始時間</label>
                 <input type="time" ng-model="editSchedule.timefrom">
               </md-input-container>
               <md-input-container class="md-block" flex="auto">
-                <label>end time</label>
+                <label>終了時間</label>
                 <input type="time" ng-model="editSchedule.timeto" ng-min="editSchedule.timefrom">
               </md-input-container>
               <div flex="5"></div>
