@@ -41,6 +41,17 @@
             </md-input-container>
             <div flex="5"></div>
         </div>
+        <div layout="row">
+            <div flex="5"></div>
+                <md-input-container class="md-block" flex="auto">
+                    <label>出発IC</label>
+                    <input type="text" ng-change="getStartSuggest()" ng-model="setting.highway_home" autocomplete="on" list="staretIC"/>
+                    <datalist id="staretIC">
+                        <option ng-repeat="suggest in startSuggest" value="{{suggest}}"/>
+                    </datalist>
+                </md-input-container>
+            <div flex="5"></div>
+        </div>
 
         <div layout="row">
             <md-button class="md-raised md-accent btn-large" flex="auto" ng-click="update();" ng-disabled="form.$invalid">更新</md-button>

@@ -16,13 +16,15 @@
                     {"genreid":"g002","name" : "ライト・ランタン", "img":"images/camp-icons/lantern.png","cls":"cls-amber"},
                     {"genreid":"g003","name":"シュラフ・マット", "img":"images/camp-icons/sleepingbag.png","cls":"cls-deeppurple"},
                     {"genreid":"g004","name":"BBQ・焚火", "img":"images/camp-icons/flame.png","cls":"cls-orange"},
-                    {"genreid":"g005","name":"ファニチャー", "img":"images/camp-icons/table.png","cls":"cls-teal"},
-                    {"genreid":"g006","name":"調理・食器", "img":"images/camp-icons/pot-on-fire.png","cls":"cls-deeporange"},
-                    {"genreid":"g007","name":"ウェアー", "img":"images/camp-icons/vest.png","cls":"cls-blue"},
-                    {"genreid":"g008","name":"シューズ", "img":"images/camp-icons/dr-mateen-boot.png","cls":"cls-brown"},
-                    {"genreid":"g009","name":"バックパック", "img":"images/camp-icons/bagpack.png","cls":"cls-purple"},
-                    {"genreid":"g010","name":"アクセサリ", "img":"images/camp-icons/orientation.png","cls":"cls-red"},
-                    {"genreid":"g011","name":"衛生用品", "img":"images/camp-icons/healthcare.png","cls":"cls-lightblue"}
+                    {"genreid":"g005","name":"燃料", "img":"images/camp-icons/wood.png","cls":"cls-brown"},
+                    {"genreid":"g006","name":"ファニチャー", "img":"images/camp-icons/table.png","cls":"cls-teal"},
+                    {"genreid":"g007","name":"調理・食器", "img":"images/camp-icons/pot-on-fire.png","cls":"cls-deeporange"},
+                    {"genreid":"g008","name":"クーラー・ボトル", "img":"images/camp-icons/basket.png","cls":"cls-lightblue"},
+                    {"genreid":"g009","name":"ウェアー", "img":"images/camp-icons/vest.png","cls":"cls-green"},
+                    {"genreid":"g010","name":"シューズ", "img":"images/camp-icons/dr-mateen-boot.png","cls":"cls-bluegrey"},
+                    {"genreid":"g011","name":"バックパック", "img":"images/camp-icons/bagpack.png","cls":"cls-purple"},
+                    {"genreid":"g012","name":"アクセサリ", "img":"images/camp-icons/orientation.png","cls":"cls-red"},
+                    {"genreid":"g013","name":"衛生用品", "img":"images/camp-icons/healthcare.png","cls":"cls-cyan"}
                 ];
             return data;
         });

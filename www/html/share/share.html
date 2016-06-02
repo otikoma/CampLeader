@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script>
+    </script>
+</head>
+<body>
+<ons-page modifier="plan-details" ng-controller="ShareController">
+    <ons-toolbar modifier="transparent">
+        <md-toolbar class="md-hue-2">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings" ng-click="app.navi.popPage()">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                </md-button>
+                <h2>
+                    <span>共有</span>
+                </h2>
+                <span flex></span>
+
+            </div>
+        </md-toolbar>
+    </ons-toolbar>
+    <md-content class="layout-padding">
+        <div layout="row">
+            <div flex="5"></div>
+            <md-input-container class="md-block" flex="auto">
+                <label>タイトル</label>
+                <input type="text" ng-model="subject"/>
+            </md-input-container>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+            <md-input-container class="md-block" flex="auto">
+                <label>内容</label>
+                <textarea ng-model="text" md-maxlength="512" rows="6" id="text" ng-focus="jumpTo('text')"></textarea>
+            </md-input-container>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <md-button class="md-raised md-accent btn-large" flex="auto" ng-click="share();">共有</md-button>
+        </div>
+    </md-content>
+</ons-page>
+</body>
+</html>

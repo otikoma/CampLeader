@@ -56,6 +56,14 @@
               <div flex="5"></div>
         </div>
         <div layout="row">
+            <div flex="5"></div>
+            <md-input-container class="md-block" flex="auto">
+                <label>テキスト</label>
+                <textarea ng-model="editSchedule.text" md-maxlength="150" rows="5" id="text" ng-focus="jumpTo('text')"></textarea>
+            </md-input-container>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
             <md-button class="md-raised md-accent btn-large" flex="auto" ng-click="updateSchedule();" ng-disabled="form.$invalid">更新</md-button>
         </div>
         </form>

@@ -1,3 +1,7 @@
+md-content > md-list {
+    padding-top:0;
+}
+
 .list-item-container {
   line-height: 1;
   padding: 15px 0px 15px 15px;
@@ -12,6 +16,10 @@
     width: 16px;
     height: 16px;
     margin-right:5px;
+}
+
+.avatar-square {
+    border-radius: 0% !important;
 }
 
 .imgicon-fab {

@@ -103,7 +103,7 @@
                     <md-content>
                         <md-list>
                             <md-list-item class="md-2-line"ng-repeat="expense in item.expenses track by expense.expenseid" modifier="chevron" ng-click="openEditExpense(expense.expenseid);">
-                                <img alt="logo" ng-src="{{getIcon(expense.category)}}" class="md-avatar" />
+                                <img alt="logo" ng-src="{{getIcon(expense.category)}}" class="md-avatar avatar-square" />
                                 <div class="md-list-item-text">
                                     <h3>{{getExTitle(expense)}}</h3>
                                     <p>{{expense.total}}</p>
@@ -128,7 +128,11 @@
                 <md-tab-body>
                     <md-content>
                         <md-list>
-                            <md-list-item ng-repeat="gearitem in item.gears track by gearitem.gearid" ng-init="gear = getGear(gearitem.gearid)" ng-click="gearitem.selected = !gearitem.selected">
+                            <md-subheader ng-repeat-start="genre in getGenres()" class="md-no-sticky {{genre.cls}}">
+                                <img ng-src="{{genre.img}}" class="imgicon"/>
+                                <span>{{genre.name}}</span>
+                            </md-subheader>
+                            <md-list-item ng-repeat-end ng-repeat="gearitem in getGears(genre.genreid) track by gearitem.gearid" ng-init="gear = getGear(gearitem.gearid)" ng-click="toggleCheck(gearitem)">
                                 <md-checkbox ng-model="gearitem.selected"></md-checkbox>
                                 <p>{{gear.name}}</p>
                             </md-list-item>

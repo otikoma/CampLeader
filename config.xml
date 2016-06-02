@@ -32,13 +32,6 @@
   <preference name="UIWebViewDecelerationSpeed" value="normal"/>
   <preference name="monaca:targetFamilyiPhone" value="1"/>
   <preference name="monaca:targetFamilyiPad" value="1"/>
-  <access origin="*"/>
-  <preference name="KeepRunning" value="true"/>
-  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="Orientation" value="default"/>
-  <preference name="SplashScreenDelay" value="1000"/>
-  <preference name="Fullscreen" value="false"/>
   <feature name="Camera">
     <param name="android-package" value="org.apache.cordova.camera.CameraLauncher"/>
     <param name="ios-package" value="CDVCamera"/>
@@ -51,4 +44,11 @@
     <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer"/>
     <param name="ios-package" value="CDVFileTransfer"/>
   </feature>
+  <access origin="*"/>
+  <preference name="KeepRunning" value="true"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="Orientation" value="default"/>
+  <preference name="SplashScreenDelay" value="1000"/>
+  <preference name="Fullscreen" value="false"/>
 </widget>

@@ -17,6 +17,7 @@
 .navigation-bar.search~.page__content {
     top:112px !important;
 }
+
 .navigation-bar .left,.navigation-bar .center,.navigation-bar .right {
     display:none !important;
 }
@@ -64,75 +65,137 @@ a {
 .hide {
     height:0px;
 }
-.cls-pink {
-    background-color: #F8BBD0 !important;//pink
-}
-.cls-pink button.md-fab {
-    background-color: #E91E63 !important;//pink
-}
-.cls-amber {
-    background-color: #FFECB3 !important;//amber
-}
-.cls-amber button.md-fab {
-    background-color: #FFC107 !important;//amber
-}
-.cls-purple {
-    background-color: #E1BEE7 !important;//purple
-}
-.cls-purple button.md-fab {
-    background-color: #9C27B0 !important;//purple
-}
-.cls-deeppurple {
-    background-color: #D1C4E9 !important;//deep purple
-}
-.cls-deeppurple button.md-fab {
-    background-color: #673AB7 !important;//deep purple
-}
-.cls-orange {
-    background-color: #FFE0B2 !important;//orange
-}
-.cls-orange button.md-fab {
-    background-color: #FF9800 !important;//orange
-}
-.cls-deeporange {
-    background-color: #FFCCBC !important;//deeporange
-}
-.cls-deeporange button.md-fab {
-    background-color: #FF5722 !important;//deeporange
-}
+
+/*red*/
 .cls-red {
     background-color: #FFCDD2 !important;//red
 }
 .cls-red button.md-fab {
     background-color: #F44336 !important;//red
 }
-.cls-blue {
-    background-color: #BBDEFB !important;//blue
+/*pink*/
+.cls-pink {
+    background-color: #F8BBD0 !important;//pink
 }
-.cls-blue button.md-fab {
-    background-color: #2196F3 !important;//blue
+.cls-pink button.md-fab {
+    background-color: #E91E63 !important;//pink
 }
+/*purple*/
+.cls-purple {
+    background-color: #E1BEE7 !important;//purple
+}
+.cls-purple button.md-fab {
+    background-color: #9C27B0 !important;//purple
+}
+/*deeppurple*/
+.cls-deeppurple {
+    background-color: #D1C4E9 !important;//deep purple
+}
+.cls-deeppurple button.md-fab {
+    background-color: #673AB7 !important;//deep purple
+}
+/*indigo*/
 .cls-indigo {
     background-color: #C5CAE9 !important;//indigo
 }
 .cls-indigo button.md-fab {
     background-color: #3F51B5 !important;//indigo
 }
+/*blue*/
+.cls-blue {
+    background-color: #BBDEFB !important;//blue
+}
+.cls-blue button.md-fab {
+    background-color: #2196F3 !important;//blue
+}
+/*lightblue*/
 .cls-lightblue {
     background-color: #B3E5FC !important;//lightblue
 }
 .cls-lightblue button.md-fab {
     background-color: #03A9F4 !important;//lightblue
 }
+/*cyan*/
+.cls-cyan {
+    background-color: #B2EBF2 !important;
+}
+.cls-cyan button.md-fab {
+    background-color: #00BCD4 !important;
+}
+/*teal*/
+.cls-teal {
+    background-color: #B2DFDB !important;
+}
+.cls-teal button.md-fab {
+    background-color: #009688 !important;
+}
+/*green*/
+.cls-green {
+    background-color: #C8E6C9 !important;
+}
+.cls-green button.md-fab {
+    background-color: #4CAF50 !important;
+}
+/*lightgreen*/
+.cls-lightgreen {
+    background-color: #DCEDC8 !important;
+}
+.cls-lightgreen button.md-fab {
+    background-color: #8BC34A !important;
+}
+/*lime*/
+.cls-lime {
+    background-color: #F0F4C3 !important;
+}
+.cls-lime button.md-fab {
+    background-color: #CDDC39 !important;
+}
+/*yellow*/
+.cls-yellow {
+    background-color: #FFF9C4 !important;
+}
+.cls-yellow button.md-fab {
+    background-color: #FFEB3B !important;
+}
+/*amber*/
+.cls-amber {
+    background-color: #FFECB3 !important;
+}
+.cls-amber button.md-fab {
+    background-color: #FFC107 !important;
+}
+/*orange*/
+.cls-orange {
+    background-color: #FFE0B2 !important;//orange
+}
+.cls-orange button.md-fab {
+    background-color: #FF9800 !important;//orange
+}
+/*deeporange*/
+.cls-deeporange {
+    background-color: #FFCCBC !important;//deeporange
+}
+.cls-deeporange button.md-fab {
+    background-color: #FF5722 !important;//deeporange
+}
+/*brown*/
 .cls-brown {
     background-color: #D7CCC8 !important;//brown
 }
 .cls-brown button.md-fab {
     background-color: #795548 !important;//brown
 }
-.cls-teal {
-    background-color: #B2DFDB !important;//teal
+/*grey*/
+.cls-grey {
+    background-color: #F5F5F5 !important;//brown
 }
-.cls-teal button.md-fab {
-    background-color: #009688 !important;//teal
+.cls-grey button.md-fab {
+    background-color: #9E9E9E !important;//brown
+}
+/*bluegrey*/
+.cls-bluegrey {
+    background-color: #CFD8DC !important;//brown
+}
+.cls-bluegrey button.md-fab {
+    background-color: #607D8B !important;//brown
 }

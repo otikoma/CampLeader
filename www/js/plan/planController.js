@@ -1,5 +1,5 @@
 // This is a JavaScript file
-app.controller('PlanListController', function($mdDialog, $scope, $filter, PlanData) {
+app.controller('PlanListController', function($scope, $filter, PlanData, ShareData) {
             $scope.items = PlanData.items;
             $scope.openDetail = function(planid) {
                 PlanData.selectedItem = $filter("filter")(PlanData.items, {"planid" : planid})[0];
@@ -36,6 +36,33 @@ app.controller('PlanListController', function($mdDialog, $scope, $filter, PlanDa
                 PlanData.selectedItem = {"planid" : createId('PL'), "title" : "","datefrom":new Date(),"dateto":new Date(),"text":"", "images":[], "schedules":[], "expenses":[]};
                 app.navi.pushPage('html/plan/eventEdit.html');
             };
+            $scope.share = function(item) {
+                var text = "■" + item.title + "\n";
+                text = text + "■日程\n";
+                text = text + "　" + $filter('date')(item.datefrom, "MM月dd日")  + "～" + $filter('date')(item.dateto, "MM月dd日") + "\n";
+                text = text + "\n";
+                if(item.text != "") {
+                    text = text + item.text + "\n";
+                }
+                text = text + "■スケジュール\n";
+                var schedules = $filter("orderBy")(item.schedules, "timefrom");
+                var date ="";
+                angular.forEach(schedules, function(schedule) {
+                    if($filter('date')(schedule.timefrom, "MM月dd日") != date) {
+                        date = $filter('date')(schedule.timefrom, "MM月dd日");
+                        text = text + "　" + date + "\n";
+                    }
+                    text = text + "　" + $filter('date')(schedule.timefrom, "H時mm分")  + "～" + $filter('date')(schedule.timeto, "H時mm分") + "\n";
+                    text = text + "　" + schedule.title + "\n";
+                    if(schedule.text != "") {
+                        text = text + "　　" + schedule.text + "\n";
+                    }
+                });
+                ShareData.subject = item.title;
+                ShareData.text = text;
+                app.navi.pushPage('html/share/share.html');
+            }
+            
             $scope.delete = function(planid) {
                 //データ削除
                 if(!window.confirm(deletemsg)) {
@@ -58,13 +85,15 @@ app.controller('PlanListController', function($mdDialog, $scope, $filter, PlanDa
                     $scope.items = PlanData.items;
                 });
             });
-            $scope.isios = monaca.isIOS;
         });
-app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdMedia, PlanData, PlanCategory, ExpenseCategory, GearData, SettingData) {
+app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdMedia, PlanData, PlanCategory, ExpenseCategory,
+    GearGenre,GearData, SettingData) {
             $scope.item = PlanData.selectedItem;
             $scope.exCategory = ExpenseCategory.items;
             $scope.selectedIndex = 0;
             $scope.plancategory = PlanCategory.items;
+            $scope.genres = GearGenre.items;
+            $scope.gears = GearData.items;
             $scope.getSchedulesDate = function(date) {
                 var start = new Date(date);
                 var end = new Date(date);
@@ -266,7 +295,21 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
                 PlanData.selectedItem = $scope.item;
                 saveStrageData('PlanData', PlanData.items);
             }
-            $scope.toggleCheck = function(gear) {
+        
+            $scope.getGenres = function() {
+                return $scope.genres;
+            }
+            $scope.getGears = function(genreid) {
+                var gears = [];
+                angular.forEach($scope.item.gears, function(value) {
+                    var gear = $scope.getGear(value.gearid);
+                    if(gear.genreid === genreid) {
+                        gears.push(value);
+                    }
+                });
+                return gears;
+            }
+            $scope.toggleCheck = function(gearitem) {
                 gearitem.selected = !gearitem.selected;
                 $scope.update();
             }
@@ -321,8 +364,6 @@ app.controller('PlanEditController', function($scope, $filter, $location,$timeou
                     $anchorScroll();
                 }, 500);
             }
-            
-            $scope.isios = monaca.isIOS;
         });
 app.controller('ScheduleEditController', function($scope, $controller, $filter, PlanData) {
             $controller('PlanEditController', {$scope: $scope}); //This works
@@ -365,7 +406,7 @@ app.controller('ScheduleEditController', function($scope, $controller, $filter, 
 app.controller('BelongingsController', function($scope, $controller, $filter, PlanData, GearGenre, GearData) {
         $controller('PlanEditController', {$scope: $scope}); //This works
         $scope.genres = GearGenre.items;
-        $scope.items = GearData.items;
+        $scope.items = $filter("filter")(GearData.items, {"deleteflg" : '!1'});;
         $scope.selectedGear = $scope.edititem.gears;
         
         $scope.getGenres = function() {
@@ -377,6 +418,7 @@ app.controller('BelongingsController', function($scope, $controller, $filter, Pl
         }
         $scope.getItems = function(genreid) {
             var items = $filter("filter")($scope.items, {"genreid" : genreid});
+            items = $filter("orderBy")(items,"name");
             return items;
         };
         $scope.isChecked = function(gearid) {
@@ -418,353 +460,3 @@ app.controller('BelongingsController', function($scope, $controller, $filter, Pl
             }
         });
 });
-
-app.controller('ExpenseCampsightController', function($scope, $controller, PlanData) {
-        $controller('PlanEditController', {$scope: $scope}); //This works
-        $scope.expense = PlanData.selectedExpence;
-        $scope.total = function() {
-            return (($scope.expense.datas.entrance_fee * $scope.expense.datas.people_num) + ($scope.expense.datas.entrance_fee_child * $scope.expense.datas.people_num_child)
-            + ($scope.expense.datas.sight_fee * $scope.expense.datas.sight_num)) * $scope.expense.datas.days;
-        }
-        //キャンプ場代　更新
-        $scope.updateExpenseCampsight = function() {
-                $scope.expense.total = $scope.total();
-                var olditems = $scope.edititem.expenses;
-                var b = false;
-                angular.forEach(olditems, function(item) {
-                    if ($scope.expense.expenseid === item.expenseid) {
-                        var index = $scope.edititem.expenses.indexOf(item);
-                        $scope.edititem.expenses.splice(index, 1);
-                    }
-                });
-                $scope.edititem.expenses.push($scope.expense);
-                $scope.update();
-        }
-});
-app.controller('ExpenseMovingController', function($scope, $controller, $filter, $mdDialog, PlanData) {
-        $controller('PlanEditController', {$scope: $scope}); //This works
-        $scope.expense = PlanData.selectedExpence;
-        $scope.total = function() {
-            return Math.ceil(1*$scope.expense.datas.car + 1*$scope.getGasTotal() + (1*$scope.expense.datas.highway_outward + 1*$scope.expense.datas.highway_homeward));
-        }
-        //ガソリン代合計
-        $scope.getGasTotal = function() {
-            var gasoline_price = $scope.expense.datas.gasoline_price;
-            var fuel_consumption = $scope.expense.datas.fuel_consumption;
-            var distance = $scope.expense.datas.distance;
-            if(fuel_consumption === "" || fuel_consumption === 0) {
-                return 0;
-            }
-            return Math.ceil((gasoline_price / fuel_consumption) * distance);
-        }
-        //交通費更新
-        $scope.updateExpenseMoving = function() {
-                $scope.expense.total = $scope.total();
-                var olditems = $scope.edititem.expenses;
-                if(olditems === null || olditems === undefined) {
-                    $scope.edititem.expenses = [];
-                }else {
-                    var b = false;
-                    angular.forEach(olditems, function(item) {
-                        if ($scope.expense.expenseid === item.expenseid) {
-                            var index = $scope.edititem.expenses.indexOf(item);
-                            $scope.edititem.expenses.splice(index, 1);
-                        }
-                    });
-                }
-                $scope.edititem.expenses.push($scope.expense);
-                $scope.update();
-        }
-        //ダイアログ表示
-        $scope.showDialog = function(ev,func) {
-            $mdDialog.show({
-                controller: DialogController,
-                templateUrl: 'html/plan/move/searchHighwayDialog.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose:true,
-                fullscreen:true
-            })
-            .then(function(answer) {
-                func(answer);
-            }, function() {
-                return;
-            });
-        };
-        //高速検索を開く
-        $scope.searchHighwayOutward = function(ev) {
-            $scope.showDialog(ev, function(ans){
-                $scope.expense.datas.highway_outward = ans;
-            });
-        };
-        $scope.searchHighwayHomeward = function(ev) {
-            $scope.showDialog(ev, function(ans){
-                $scope.expense.datas.highway_homeward = ans;
-            });
-        };
-        
-        //高速経路・料金検索
-        function DialogController($scope, $mdDialog,  $filter, $http, $httpParamSerializerJQLike) {
-            $scope.hide = function() {
-                $mdDialog.hide();
-            };
-            $scope.cancel = function() {
-                $mdDialog.cancel();
-            };
-            $scope.answer = function(answer) {
-                $mdDialog.hide(answer);
-            };
-            $scope.startSuggest = [];
-            $scope.endSuggest = [];
-            $scope.routes = [];
-            $scope.routeIndex = 0;
-            $scope.routesShow = [];
-            var x2js = new X2JS();
-            $scope.getRoute = function() {
-                var idx = $scope.routeIndex;
-                for(var i = idx; i < $scope.routes.length && i < idx + 3; i++) {
-                    //select初期値
-                    var sectionArr = $scope.comvartArray($scope.routes[i].Details.Section);
-                    angular.forEach(sectionArr, function(section) {
-                        var tollArr = $scope.comvartArray(section.Tolls.Toll)
-                        section.radioval = $scope.getTollVal(tollArr[0]);
-                    });
-                    $scope.routesShow.push($scope.routes[i]);
-                    $scope.routeIndex++;
-    
-                }
-            }
-            $scope.comvartArray = function(obj) {
-                if(Array.isArray(obj)) {
-                    return obj;
-                }else {
-                    var arr = new Array();
-                    arr.push(obj);
-                    return arr;
-                }
-            }
-            $scope.getTollVal = function(toll) {
-                var num = toll.match(/^[0-9]+/);
-                return 1 * num;
-            }
-            $scope.getTollTotal = function(route) {
-                var total = 0;
-                var sectionArr = $scope.comvartArray(route.Details.Section);
-                angular.forEach(sectionArr, function(section) {
-                    total += 1 * section.radioval;
-                });
-                return total;
-            }
-            $scope.getStartSuggest = function() {
-                var param = { f: $scope.startIc, t: "渋", c:'普通車' };
-                post($scope, param, function(data) {
-                if(data.Result.FromICs != undefined) {
-                    if(Array.isArray(data.Result.FromICs.IC)) {
-                        $scope.startSuggest = data.Result.FromICs.IC;
-                    } else {
-                        $scope.startSuggest = [data.Result.FromICs.IC];
-                    }
-                } else {
-                    $scope.startSuggest = [];
-                }
-                });
-            }
-            $scope.getEndSuggest = function() {
-                var param = { f: "渋", t: $scope.endIc, c:'普通車' };
-                post($scope, param, function(data) {
-                    if(!data.Result.ToICs != undefined) {
-                        if(Array.isArray(data.Result.ToICs.IC)) {
-                            $scope.endSuggest = data.Result.ToICs.IC;
-                        } else {
-                            $scope.endSuggest = [data.Result.ToICs.IC];
-                        }
-                    }else {
-                        $scope.endSuggest = [];
-                    }
-                });
-            }
-            $scope.search = function() {
-                blur();
-                var param = { f: $scope.startIc, t: $scope.endIc, c:'普通車' }
-                post($scope, param, function(data) {
-                    var status = data.Result.Status;
-                    if(status === undefined) {
-                        var msg = "";
-                        if($scope.startSuggest.length === 0) {
-                            msg = "出発ICが存在しません\n"
-                        }
-                        if($scope.endSuggest.length === 0) {
-                            msg = msg + "到着ICが存在しません"
-                        }
-                        alert(msg);
-                        $scope.routes = [];
-                        $scope.routeIndex = 0;
-                        $scope.routesShow = [];
-                    }else if("NotEnd" === status) {
-                        alert("経路が見つかりませんでした");
-                        $scope.routes = [];
-                        $scope.routeIndex = 0;
-                        $scope.routesShow = [];
-                    } else if("End" === status){
-                        $scope.routes =  data.Result.Routes.Route;
-                        $scope.routeIndex = 0;
-                        $scope.routesShow = [];
-                        $scope.getRoute();
-                    }
-                });
-            }
-        };
-});
-app.controller('ExpenseOtherController', function($scope, $controller, PlanData) {
-        $controller('PlanEditController', {$scope: $scope}); //This works
-        $scope.expense = PlanData.selectedExpence;
-        
-        //更新
-        $scope.updateExpense = function() {
-                $scope.expense.total = $scope.expense.datas.expence;
-                var olditems = $scope.edititem.expenses;
-                var b = false;
-                angular.forEach(olditems, function(item) {
-                    if ($scope.expense.expenseid === item.expenseid) {
-                        var index = $scope.edititem.expenses.indexOf(item);
-                        $scope.edititem.expenses.splice(index, 1);
-                    }
-                });
-                $scope.edititem.expenses.push($scope.expense);
-                $scope.update();
-        }
-});
-
-app.controller('SearchHighwayController', function($scope, $mdDialog,  $filter, $http, $httpParamSerializerJQLike) {
-
-        $scope.startSuggest = [];
-        $scope.endSuggest = [];
-        $scope.routes = [];
-        $scope.routeIndex = 0;
-        $scope.routesShow = [];
-        var x2js = new X2JS();
-        $scope.getRoute = function() {
-            var idx = $scope.routeIndex;
-            for(var i = idx; i < $scope.routes.length && i < idx + 3; i++) {
-                //select初期値
-                var sectionArr = $scope.comvartArray($scope.routes[i].Details.Section);
-                angular.forEach(sectionArr, function(section) {
-                    var tollArr = $scope.comvartArray(section.Tolls.Toll)
-                    section.radioval = $scope.getTollVal(tollArr[0]);
-                });
-                $scope.routesShow.push($scope.routes[i]);
-                $scope.routeIndex++;
-
-            }
-        }
-        $scope.comvartArray = function(obj) {
-            if(Array.isArray(obj)) {
-                return obj;
-            }else {
-                var arr = new Array();
-                arr.push(obj);
-                return arr;
-            }
-        }
-        $scope.getTollVal = function(toll) {
-            var num = toll.match(/^[0-9]+/);
-            return 1 * num;
-        }
-        $scope.getTollTotal = function(route) {
-            var total = 0;
-            var sectionArr = $scope.comvartArray(route.Details.Section);
-            angular.forEach(sectionArr, function(section) {
-                total += 1 * section.radioval;
-            });
-            return total;
-        }
-        $scope.getStartSuggest = function() {
-            var param = { f: $scope.startIc, t: "渋", c:'普通車' };
-            post($scope, param, function(data) {
-                var status = data.Result.Status;
-                if(status != undefined) {
-                    if(Array.isArray(data.Result.FromICs.IC)) {
-                        $scope.startSuggest = data.Result.FromICs.IC;
-                    } else {
-                        $scope.startSuggest = [data.Result.FromICs.IC];
-                    }
-                } else {
-                    $scope.startSuggest = [];
-                }
-            });
-        }
-        $scope.getEndSuggest = function() {
-            var param = { f: "渋", t: $scope.endIc, c:'普通車' };
-            post($scope, param, function(data) {
-                var status = data.Result.Status;
-                if(status != undefined) {
-                    if(Array.isArray(data.Result.ToICs.IC)) {
-                        $scope.endSuggest = data.Result.ToICs.IC;
-                    } else {
-                        $scope.endSuggest = [data.Result.ToICs.IC];
-                    }
-                } else {
-                    $scope.endSuggest = [];
-                }
-            });
-        }
-        $scope.search = function() {
-            blur();
-            var param = { f: $scope.startIc, t: $scope.endIc, c:'普通車' }
-            post($scope, param, function(data) {
-                var status = data.Result.Status;
-                if(status === undefined) {
-                    var msg = "";
-                    if($scope.startSuggest.length === 0) {
-                        msg = "出発ICが存在しません\n"
-                    }
-                    if($scope.endSuggest.length === 0) {
-                        msg = msg + "到着ICが存在しません"
-                    }
-                    alert(msg);
-                    $scope.routes = [];
-                    $scope.routeIndex = 0;
-                    $scope.routesShow = [];
-                }else if("NotEnd" === status) {
-                    alert("経路が見つかりませんでした");
-                    $scope.routes = [];
-                    $scope.routeIndex = 0;
-                    $scope.routesShow = [];
-                } else if("End" === status){
-                    $scope.routes =  data.Result.Routes.Route;
-                    $scope.routeIndex = 0;
-                    $scope.routesShow = [];
-                    $scope.getRoute();
-                }
-            });
-        }
-});
-function post($scope, param, successCallback) {
-    // 1サーバーに対してHTTP POSTでリクエストを送信
-    $scope.error=false;
-    var startic = $scope.startIc;
-    var endic = $scope.endIc;
-    
-    $http({
-        method: 'POST',
-        headers: {
-            // 1リクエストヘッダーを設定
-            'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8'
-        },
-        // 2リクエストデータをjQueryと同様の形式で送信
-        transformRequest: $httpParamSerializerJQLike,
-        url: 'http://kosoku.jp/api/route.php',
-        data: param
-    })
-    // 成功時の処理
-    .success(function(data, status, headers, config){
-        var dat =  x2js.xml_str2json(data);
-        $scope.result = dat;
-        successCallback(dat);
-    })
-    // 失敗時の処理
-    .error(function(data, status, headers, config){
-        $scope.error=true;
-        $scope.result = '通信失敗！';
-    });
-}

@@ -62,11 +62,11 @@ function moveToSuccess(fileEntry) {
 }
 
 function failCamera(message) {
-  alert('カメラ操作に失敗しました。\n' + message);
+  //alert('カメラ操作に失敗しました。\n' + message);
 }
 
 function failFS(error) {
-  alert('ファイルシステム操作に失敗しました。\nエラーコード: ' + error.code);
+  //alert('ファイルシステム操作に失敗しました。\nエラーコード: ' + error.code);
 }
 
 function deleteImage(name) {
@@ -78,10 +78,10 @@ function delFile(entry) {
     entry.remove(successDel, errorDel);
 }
 function successDel() {
-    alert('削除したよ！');
+    //alert('削除したよ！');
 }
 function errorDel() {
-    alert('削除失敗！');
+    //alert('削除失敗！');
 }
 function deleteImageAll() {
     var directoryReader = persistentDirectoryEntry.createReader();

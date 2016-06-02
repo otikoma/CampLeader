@@ -2,7 +2,7 @@
 
 app.controller('GearListController', function($scope, $filter, GearGenre, GearData) {
             $scope.genres = GearGenre.items;
-            $scope.items = GearData.items;
+            $scope.items = $filter("filter")(GearData.items, {"deleteflg" : '!1'});
             $scope.searchOpen = false;
             $scope.openDetail = function(gearid) {
                 GearData.selectedItem = $filter("filter")(GearData.items, {"gearid" : gearid})[0];
@@ -17,6 +17,7 @@ app.controller('GearListController', function($scope, $filter, GearGenre, GearDa
             }
             $scope.getItems = function(genreid) {
                 var items = $filter("filter")($scope.items, {"genreid" : genreid});
+                items = $filter("orderBy")(items,"name");
                 return items;
             };
             $scope.getImage = function(item) {
@@ -28,7 +29,7 @@ app.controller('GearListController', function($scope, $filter, GearGenre, GearDa
                 }
             };
             $scope.openEdit = function() {
-                GearData.selectedItem = {"genreid" : "g001", "gearid" : createId('GR'), "name" : "","text":"","price":"","brand":"", "images":[], "plancategory":[]};
+                GearData.selectedItem = {"genreid" : "g001", "gearid" : createId('GR'), "name" : "","text":"","price":"","brand":"", "images":[], "plancategory":[],"deleteflg":"0"};
                 app.navi.pushPage('html/gear/gearEdit.html');
             };
             $scope.delete = function(gearid) {
@@ -45,6 +46,7 @@ app.controller('GearListController', function($scope, $filter, GearGenre, GearDa
                         });
                         var index = GearData.items.indexOf(item);
                         GearData.items.splice(index, 1);
+                        GearData.items.push({"genreid" : item.genreid, "gearid" : item.gearid, "name" : item.name,"text":"","price":"","brand":item.brand, "images":[], "plancategory":item.plancategory,"deleteflg":"1"});
                     }
                 });
                 saveStrageData('GearData', GearData.items);
