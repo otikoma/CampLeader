@@ -37,17 +37,24 @@
                 item.blur();
             });
         };
-          //広告をタップするとそのままリンク先を開いてしまうことがありますので、その対策を記述します。
-          window.addEventListener('load', function() {
-            var nend_links = document.querySelectorAll('.nend_wrapper a');
-            for(var i = 0; i < nend_links.length; i+=1){
-              (function() {
-                var href = nend_links[i].href;
-                nend_links[i].href = "#";
-                nend_links[i].onclick = function(){window.open(href, '_system', 'location=no'); return false;}
-              })();
-            }
-          });
+        //広告をタップするとそのままリンク先を開いてしまうことがありますので、その対策を記述します。
+        window.addEventListener('load', function() {
+            setTimeout(function () {
+                var nend_links = document.querySelectorAll('#nend_wrapper a');
+                angular.forEach(nend_links, function(link) {
+                    var href = link.href;
+                    link.href = "javascript:void(0);";
+                    link.onclick = function(){
+                        //alert(href);
+                       window.open(href, '_system'); 
+                    }
+                    
+                });
+            },1000);
+        });
+        function setHref(wrapper) {
+            wrapper.getElement
+        }
         var nend_params;
         //iOS/Androidアプリそれぞれに共通のコードとする場合は下記のように処理を切り分けます。
         // if( monaca.isIOS ){
@@ -59,8 +66,14 @@
         app.directive('nendAdInjector', function () {
             return {
                 link : function(scope, element) {
-                    var nendOriginalElem = angular.element(nend_wrapper);
-                    element.replaceWith(nendOriginalElem.clone());
+                    var nendOriginalElem = angular.element(document.querySelector('#nend_wrapper'));
+                    var clone = $(nendOriginalElem).clone();
+                    var clone_links = clone.find("a");
+                    var nend_links = document.querySelectorAll('#nend_wrapper a');
+                    for(var i = 0; i < clone_links.length; i++){
+                        clone_links[i].onclick = nend_links[i].onclick;
+                    }
+                    element.replaceWith(clone);
                 }
             }
         });
@@ -75,6 +88,7 @@
     <script src="js/plan/ExpenceController.js"></script>
     <script src="js/settingController.js"></script>
     <script src="js/lib/xml2json.min.js"></script>
+    <script src="js/jquery-1.12.4.min.js"></script>
 
 </head>
 <body>

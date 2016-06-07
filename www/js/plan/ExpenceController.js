@@ -3,9 +3,34 @@ app.controller('ExpenseCampsightController', function($scope, $controller, PlanD
         $controller('PlanEditController', {$scope: $scope}); //This works
         $scope.expense = PlanData.selectedExpence;
         $scope.total = function() {
-            return (($scope.expense.datas.entrance_fee * $scope.expense.datas.people_num) + ($scope.expense.datas.entrance_fee_child * $scope.expense.datas.people_num_child)
-            + ($scope.expense.datas.sight_fee * $scope.expense.datas.sight_num)) * $scope.expense.datas.days;
+            var total = (getpeopleTotal() + getchildTotal() + getSight()) * $scope.expense.datas.days;
+            if(isNaN(total)) {
+                total = 0;
+            }
+            return total;
         }
+        function getpeopleTotal() {
+            var total = ($scope.expense.datas.entrance_fee) * ($scope.expense.datas.people_num);
+            if(isNaN(total)) {
+                total = 0;
+            }
+            return total;
+        }
+        function getchildTotal() {
+            var total = $scope.expense.datas.entrance_fee_child * $scope.expense.datas.people_num_child;
+            if(isNaN(total)) {
+                total = 0;
+            }
+            return total;
+        }
+        function getSight() {
+            var total = $scope.expense.datas.sight_fee * $scope.expense.datas.sight_num;
+            if(isNaN(total)) {
+                total = 0;
+            }
+            return total;
+        }
+        
         //キャンプ場代　更新
         $scope.updateExpenseCampsight = function() {
                 $scope.expense.total = $scope.total();

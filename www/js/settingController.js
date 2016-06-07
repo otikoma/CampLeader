@@ -1,5 +1,7 @@
 // This is a JavaScript file
+app.controller('TopController', function($scope){
 
+});
 app.controller('SettingController', function($scope, $http, $httpParamSerializerJQLike, SettingData) {
     $scope.setting = SettingData.items;
     $scope.startSuggest = [];
