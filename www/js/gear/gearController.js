@@ -53,6 +53,7 @@ app.controller('GearListController', function($scope, $filter, GearGenre, GearDa
             }
             app.navi.on("postpop", function() {
                 $scope.items = GearData.items;
+                $scope.$apply();
             });
         });
 app.controller('GearDetailController', function($scope, $filter, GearGenre, GearData, PlanCategory) {

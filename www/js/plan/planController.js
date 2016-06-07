@@ -94,6 +94,7 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
             $scope.plancategory = PlanCategory.items;
             $scope.genres = GearGenre.items;
             $scope.gears = GearData.items;
+            $scope.numpeople = $scope.item.numpeople;
             $scope.getSchedulesDate = function(date) {
                 var start = new Date(date);
                 var end = new Date(date);
@@ -163,8 +164,12 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
             }
             //キャンプ場代入力
             $scope.openAddExCampfield = function() {
+                var days = $scope.getDates.length;
+                if(days > 1) {
+                    days = days -1; //泊数
+                }
                 PlanData.selectedExpence = {"expenseid" : createId('EX'), "category" : "e01","total": 0,"datas": {
-                        "campsitename":"","days": 1, "entrance_fee" : "", "people_num" : "", "entrance_fee_child" : "", "people_num_child" : "", "sight_fee" : "", "sight_num" : ""
+                        "campsitename":"","days": days, "entrance_fee" : "", "people_num" : $scope.item.numpeople, "entrance_fee_child" : "", "people_num_child" : $scope.item.numchild, "sight_fee" : "", "sight_num" : 1
                     }
                 };
                 app.navi.pushPage('html/plan/campsight/exCampsight.html');
@@ -203,6 +208,13 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
                     total += expense.total;
                 });
                 return "" + total;
+            }
+            $scope.division = function() {
+                if($scope.numpeople > 0) {
+                    return Math.floor($scope.total() / $scope.numpeople);
+                } else {
+                    return $scope.total();
+                }
             }
             //日付リストの取得（出発日～終了日）
             $scope.getDates = function() {

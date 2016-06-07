@@ -53,10 +53,11 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
             var gasoline_price = $scope.expense.datas.gasoline_price;
             var fuel_consumption = $scope.expense.datas.fuel_consumption;
             var distance = $scope.expense.datas.distance;
-            if(fuel_consumption === "" || fuel_consumption === 0) {
-                return 0;
+            var res = Math.ceil((gasoline_price / fuel_consumption) * distance);
+            if(isNaN(res)) {
+                res = 0;
             }
-            return Math.ceil((gasoline_price / fuel_consumption) * distance);
+            return res;
         }
         //交通費更新
         $scope.updateExpenseMoving = function() {
@@ -93,12 +94,15 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
             });
         };
         //高速検索を開く
+        $scope.isOutWard = true;
         $scope.searchHighwayOutward = function(ev) {
+            $scope.isOutWard = true;
             $scope.showDialog(ev, function(ans){
                 $scope.expense.datas.highway_outward = ans;
             });
         };
         $scope.searchHighwayHomeward = function(ev) {
+            $scope.isOutWard = false;
             $scope.showDialog(ev, function(ans){
                 $scope.expense.datas.highway_homeward = ans;
             });
@@ -120,8 +124,11 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
             $scope.routes = [];
             $scope.routeIndex = 0;
             $scope.routesShow = [];
-            $scope.startIc = SettingData.items.highway_home;
-            
+            if($scope.isOutWard) {
+                $scope.startIc = SettingData.items.highway_home;
+            }else {
+                $scope.endIc = SettingData.items.highway_home;
+            }
             $scope.getRoute = function() {
                 var idx = $scope.routeIndex;
                 for(var i = idx; i < $scope.routes.length && i < idx + 3; i++) {

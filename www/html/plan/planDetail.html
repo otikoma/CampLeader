@@ -47,6 +47,18 @@
                               <div flex="5"></div>
                         </div>
                         <div layout="row">
+                            <div flex="5"></div>
+                            <md-input-container class="md-block" flex="auto">
+                                <label>大人</label>
+                                <input type="number" ng-model="item.numpeople" disabled>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex="auto">
+                                <label>子供</label>
+                                <input type="number" ng-model="item.numchild" disabled>
+                            </md-input-container>
+                            <div flex="5"></div>
+                        </div>
+                        <div layout="row">
                               <div flex="5"></div>
                                 <md-input-container class="md-block" flex="auto">
                                   <label>テキスト</label>
@@ -99,6 +111,15 @@
                 <md-tab-body>
                     <md-toolbar class="md-tall md-accent">
                         <div style="margin:auto;">合計金額　{{total()}}円</div>
+                        <div layout="row">
+                            <div flex="5"></div>
+                            <md-input-container class="md-block" flex="30">
+                                <label>人数</label>
+                                <input ng-model="numpeople">
+                            </md-input-container>
+                            <div style="margin-top:20px" flex="60">一人当り　{{division()}}円</div>
+                            <div flex="5"></div>
+                        </div>
                     </md-toolbar>
                     <md-content>
                         <md-list>

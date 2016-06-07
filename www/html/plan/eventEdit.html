@@ -12,7 +12,7 @@
                     <i class="zmdi zmdi-arrow-left"></i>
                 </md-button>
                 <h2>
-                    <span></span>
+                    <span>計画入力</span>
                 </h2>
                 <span flex></span>
             </div>
@@ -32,17 +32,32 @@
             <div flex="5"></div>
             <md-input-container class="md-block" flex="auto">
                 <label>開始日</label>
-                <input type="date" ng-model="edititem.datefrom" placeholder="start date">
+                <input type="date" ng-model="edititem.datefrom">
             </md-input-container>
             <md-input-container class="md-block" flex="auto">
                 <label>終了日</label>
-                <input type="date" ng-model="edititem.dateto" placeholder="end date" ng-min="edititem.datefrom">
+                <input type="date" ng-model="edititem.dateto" ng-min="edititem.datefrom">
             </md-input-container>
             <div flex="5"></div>
         </div>
         <div layout="row">
             <div flex="5"></div>
-            <textarea ng-model="edititem.text" rows="5" id="text" ng-focus="jumpTo('text')"></textarea>
+            <md-input-container class="md-block" flex="auto">
+                <label>大人</label>
+                <input type="number" ng-model="edititem.numpeople">
+            </md-input-container>
+            <md-input-container class="md-block" flex="auto">
+                <label>子供</label>
+                <input type="number" ng-model="edititem.numchild">
+            </md-input-container>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+                <md-input-container class="md-block" flex="auto">
+                  <label>テキスト</label>
+                  <textarea class="input-disabled-display" ng-model="edititem.text" md-select-on-focus></textarea>
+                </md-input-container>
             <div flex="5"></div>
         </div>
         <div layout="row">

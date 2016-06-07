@@ -61,7 +61,10 @@
                      </md-card-actions>
                     <md-card-content ng-show="route.Details.show" ng-thema="bg-indigo">
                         <div layout="row" ng-repeat="(j, section) in comvartArray(route.Details.Section) track by section.Order" class="row">
-                            <div flex="40" ng-click="showSubSections($event, comvartArray(section.SubSections.SubSection))">{{section.From}}<br/> ↓ <br/>{{section.To}}</div>
+                            <div flex="40">
+                                {{section.From}}<br/> ↓ <br/>{{section.To}}
+                                <md-button  ng-click="showSubSections($event, comvartArray(section.SubSections.SubSection))">ルート</md-button>
+                            </div>
                             <div flex="60">
                                 <md-radio-group ng-model="section.radioval">
                                   <md-radio-button class="md-primary" ng-repeat="(k, toll) in comvartArray(section.Tolls.Toll)" value="{{getTollVal(toll)}}">{{toll}}</md-radio-button>
@@ -75,4 +78,7 @@
             </form>
         </md-content>
     </md-content>
+    <ons-bottom-toolbar modifier="nend">
+        <nend-ad-injector></nend-ad-injector>
+    </ons-bottom-toolbar>
 </ons-page>

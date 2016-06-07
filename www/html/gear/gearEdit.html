@@ -22,13 +22,13 @@
     </ons-toolbar>
     <md-toolbar ng-class="genreCls">
         <div layout="row">
-            <md-button class="md-fab md-mini" aria-label="Favorite" ng-click="showDialog($event);">
-                <img ng-src="{{genre.img}}" class="imgicon-fab"/>
-            </md-button>
+            <md-button class="md-raised flex-colors" ng-click="showDialog($event);">変更</md-button>
+            <img ng-src="{{genre.img}}" class="imgicon-text"/>
             <h2 class="md-toolbar-tools md-toolbar-tools-bottom">
-                <span class="md-flex">{{genre.name}}</span>
+                <span class="md-flex" style="color:#000;">{{genre.name}}</span>
             </h2>
-            <span flex></span>
+            <span flex>
+            </span>
         </div>
     </md-toolbar>
     <md-contents layout-padding>

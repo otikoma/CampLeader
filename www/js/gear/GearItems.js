@@ -24,7 +24,8 @@
                     {"genreid":"g010","name":"シューズ", "img":"images/camp-icons/dr-mateen-boot.png","cls":"cls-bluegrey"},
                     {"genreid":"g011","name":"バックパック", "img":"images/camp-icons/bagpack.png","cls":"cls-purple"},
                     {"genreid":"g012","name":"アクセサリ", "img":"images/camp-icons/orientation.png","cls":"cls-red"},
-                    {"genreid":"g013","name":"衛生用品", "img":"images/camp-icons/healthcare.png","cls":"cls-cyan"}
+                    {"genreid":"g013","name":"衛生用品", "img":"images/camp-icons/healthcare.png","cls":"cls-cyan"},
+                    {"genreid":"g014","name":"その他", "img":"images/camp-icons/oval.png","cls":"cls-grey"}
                 ];
             return data;
         });

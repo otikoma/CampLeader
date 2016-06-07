@@ -37,12 +37,22 @@
                 item.blur();
             });
         };
+          //広告をタップするとそのままリンク先を開いてしまうことがありますので、その対策を記述します。
+          window.addEventListener('load', function() {
+            var nend_links = document.querySelectorAll('.nend_wrapper a');
+            for(var i = 0; i < nend_links.length; i+=1){
+              (function() {
+                var href = nend_links[i].href;
+                nend_links[i].href = "#";
+                nend_links[i].onclick = function(){window.open(href, '_system', 'location=no'); return false;}
+              })();
+            }
+          });
         var nend_params;
-
         //iOS/Androidアプリそれぞれに共通のコードとする場合は下記のように処理を切り分けます。
-        if( monaca.isIOS ){
-            nend_params = {"media":37205,"site":203611,"spot":572967,"type":1,"oriented":2}; // iOS
-        }
+        // if( monaca.isIOS ){
+        //     nend_params = {"media":37205,"site":203611,"spot":572967,"type":1,"oriented":2}; // iOS
+        // }
         if( monaca.isAndroid ){
             nend_params = {"media":37205,"site":198713,"spot":572966,"type":1,"oriented":3}; // Android
         }
