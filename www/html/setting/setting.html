@@ -53,9 +53,74 @@
             <div flex="5"></div>
         </div>
 
+<!--        <div layout="row">
+            <div flex="5"></div>
+            <h1 flex class="md-title">共有設定</h1>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+            <div flex>
+                <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="setting.share.peoplenum">
+                    人数
+                </md-switch>    
+            </div>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+            <div flex>
+                <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="setting.share.schedule">
+                    予定
+                </md-switch>    
+            </div>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+            <div flex>
+                <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="setting.share.expence">
+                    費用
+                </md-switch>    
+            </div>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+            <div flex>
+                <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="setting.share.belonging">
+                    持ち物
+                </md-switch>    
+            </div>
+            <div flex="5"></div>
+        </div>
+        <div layout="row">
+            <div flex="5"></div>
+            <div flex>
+                <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink" ng-model="setting.share.belonging">
+                    持ち物
+                </md-switch>    
+            </div>
+            <div flex="5"></div>
+        </div>
+-->
         <div layout="row">
             <md-button class="md-raised md-accent btn-large" flex="auto" ng-click="update();" ng-disabled="form.$invalid">更新</md-button>
         </div>
+        <md-list style="padding-top:0;">
+            <md-list-item class="md-2-line">
+                <div class="md-list-item-text" layout="column">
+                    <h3>アプリ情報</h3>
+                    <p>Camp Support ver1.0.0</p>
+                </div>
+            </md-list-item>
+            <md-list-item class="md-2-line" ng-click="openKousoku()">
+                <div class="md-list-item-text" layout="column">
+                    <h3>高速.jp</h3>
+                    <p>このアプリはkosoku APIを使用しています</p>
+                </div>
+            </md-list-item>
+        </md-list>
     </md-contents>
    </form>
     <ons-bottom-toolbar modifier="nend">

@@ -77,6 +77,15 @@
                 }
             }
         });
+        app.directive('mdContents', function () {
+            return {
+                link : function(scope, element) {
+                    element.bind("click", function () {
+                        blur();
+                    });
+                }
+            }
+        });
     </script>
     <script src="js/strage.js"></script>
     <script src="js/init.js"></script>

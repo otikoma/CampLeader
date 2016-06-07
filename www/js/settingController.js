@@ -32,6 +32,9 @@ app.controller('SettingController', function($scope, $http, $httpParamSerializer
             alert("更新しました");
         }
     }
+    $scope.openKousoku = function() {
+        window.open("http://kosoku.jp/", '_system'); 
+    }
 });
 
 app.factory('SettingData', function() {
