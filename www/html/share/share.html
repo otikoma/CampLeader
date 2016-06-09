@@ -21,7 +21,7 @@
             </div>
         </md-toolbar>
     </ons-toolbar>
-    <md-content class="layout-padding">
+    <md-contents class="layout-padding">
         <div layout="row">
             <div flex="5"></div>
             <md-input-container class="md-block" flex="auto">
@@ -34,14 +34,14 @@
             <div flex="5"></div>
             <md-input-container class="md-block" flex="auto">
                 <label>内容</label>
-                <textarea ng-model="text" md-maxlength="512" rows="6" id="text" ng-focus="jumpTo('text')"></textarea>
+                <textarea ng-model="text" rows="6" id="text" ng-focus="jumpTo('text')"></textarea>
             </md-input-container>
             <div flex="5"></div>
         </div>
         <div layout="row">
             <md-button class="md-raised md-accent btn-large" flex="auto" ng-click="share();">共有</md-button>
         </div>
-    </md-content>
+    </md-contents>
 </ons-page>
 </body>
 </html>

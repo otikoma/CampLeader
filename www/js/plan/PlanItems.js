@@ -33,7 +33,8 @@
                     {"categoryid":"p04","name":"登山"},
                     {"categoryid":"p05","name":"ツーリング"},
                     {"categoryid":"p06","name":"フィッシング"},
-                    {"categoryid":"p07","name":"アクティビティー"}
+                    {"categoryid":"p07","name":"アクティビティー"},
+                    {"categoryid":"p08","name":"その他"}
                 ];
             return data;
         });

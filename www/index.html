@@ -24,6 +24,8 @@
             .accentPalette('orange');
             $mdThemingProvider.theme('bg-indigo')
             .backgroundPalette('indigo');
+            $mdThemingProvider.theme('accent')
+            .primaryPalette('orange');
         });
         
         var msg = "変更を破棄してもよろしいですか？";
@@ -34,6 +36,9 @@
                 item.blur();
             });
             angular.forEach(document.getElementsByTagName("textarea"),function(item) {
+                item.blur();
+            });
+            angular.forEach(document.getElementsByTagName("md-select"),function(item) {
                 item.blur();
             });
         };

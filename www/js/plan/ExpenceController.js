@@ -110,7 +110,10 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose:true,
-                fullscreen:true
+                fullscreen:true,
+                locals: {
+                    isOutWard: $scope.isOutWard
+                },
             })
             .then(function(answer) {
                 func(answer);
@@ -134,7 +137,8 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
         };
         
         //高速経路・料金検索
-        function DialogController($scope, $mdDialog,  $filter, $http, $httpParamSerializerJQLike, SettingData) {
+        function DialogController($scope, $mdDialog, isOutWard,  $filter, $http, $httpParamSerializerJQLike, SettingData) {
+            $scope.isOutWard = isOutWard;
             $scope.hide = function() {
                 $mdDialog.hide();
             };
@@ -149,6 +153,8 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
             $scope.routes = [];
             $scope.routeIndex = 0;
             $scope.routesShow = [];
+            $scope.progress = false;
+            
             if($scope.isOutWard) {
                 $scope.startIc = SettingData.items.highway_home;
             }else {
@@ -218,9 +224,11 @@ app.controller('ExpenseMovingController', function($scope, $controller, $filter,
                 });
             }
             $scope.search = function() {
+                $scope.progress = true;
                 blur();
                 var param = { f: $scope.startIc, t: $scope.endIc, c:'普通車' }
                 post($scope, $http, $httpParamSerializerJQLike, param, function(data) {
+                    $scope.progress = false;
                     var status = data.Result.Status;
                     if(status === undefined) {
                         alert("経路が見つかりませんでした");
@@ -271,6 +279,7 @@ app.controller('SearchHighwayController', function($scope, $mdDialog,  $filter, 
         $scope.routes = [];
         $scope.routeIndex = 0;
         $scope.routesShow = [];
+        $scope.progress = false;
         
         $scope.startIc = SettingData.items.highway_home;
         
@@ -340,9 +349,11 @@ app.controller('SearchHighwayController', function($scope, $mdDialog,  $filter, 
             });
         }
         $scope.search = function() {
+            $scope.progress = true;
             blur();
             var param = { f: $scope.startIc, t: $scope.endIc, c:'普通車' }
             post($scope, $http, $httpParamSerializerJQLike, param, function(data) {
+                $scope.progress = false;
                 var status = data.Result.Status;
                 if(status === undefined) {
                     alert("経路が見つかりませんでした");
@@ -408,6 +419,7 @@ function post(scope, http, httpParamSerializerJQLike, param, successCallback) {
     // 失敗時の処理
     .error(function(data, status, headers, config){
         scope.error=true;
+        scope.progress = false;
         scope.result = '通信失敗！';
     });
 }

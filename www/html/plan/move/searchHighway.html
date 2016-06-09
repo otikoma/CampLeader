@@ -45,6 +45,7 @@
             <md-button class="md-raised md-primary" ng-click="search()">検索</md-button>
         </md-contents>
         <md-content class="md-padding" layout="column">
+            <md-progress-linear md-mode="indeterminate" ng-show="progress"></md-progress-linear>
             <p ng-show="error" ng-init="error=false">通信エラー</p>
             <form ng-repeat="(i, route) in routesShow track by route.RouteNo" ng-init="route.Details.show=false">
                 <md-card>

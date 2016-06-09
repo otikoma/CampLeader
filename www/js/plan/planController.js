@@ -164,7 +164,7 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
             }
             //キャンプ場代入力
             $scope.openAddExCampfield = function() {
-                var days = $scope.getDates.length;
+                var days = $scope.getDates().length;
                 if(days > 1) {
                     days = days -1; //泊数
                 }
