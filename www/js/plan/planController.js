@@ -3,6 +3,7 @@ app.controller('PlanListController', function($scope, $filter, PlanData, ShareDa
             $scope.items = PlanData.items;
             $scope.openDetail = function(planid) {
                 PlanData.selectedItem = $filter("filter")(PlanData.items, {"planid" : planid})[0];
+                PlanData.updated = false;
                 app.navi.pushPage('html/plan/planDetail.html');
             };
             $scope.getItems = function() {
@@ -60,6 +61,7 @@ app.controller('PlanListController', function($scope, $filter, PlanData, ShareDa
                 });
                 ShareData.subject = item.title;
                 ShareData.text = text;
+                PlanData.updated = false;
                 app.navi.pushPage('html/share/share.html');
             }
             
@@ -77,13 +79,15 @@ app.controller('PlanListController', function($scope, $filter, PlanData, ShareDa
                     }
                 });
                 if(saveStrageData('PlanData', PlanData.items)) {
-                    app.navi.popPage();
+                    //削除しました
                 }
             }
-            app.navi.on("postpop", function() {
-                $scope.$apply(function () {
-                    $scope.items = PlanData.items;
-                });
+            app.navi.on("postpop", function(e) {
+                if((e.leavePage.page==="html/plan/planDetail.html" || e.leavePage.page==="html/plan/eventEdit.html") && PlanData.updated) {
+                    $scope.$apply(function () {
+                        $scope.items = PlanData.items;
+                    });
+                }
             });
         });
 app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdMedia, PlanData, PlanCategory, ExpenseCategory,
@@ -325,9 +329,11 @@ app.controller('PlanDetailController', function($scope, $filter, $mdDialog, $mdM
                 gearitem.selected = !gearitem.selected;
                 $scope.update();
             }
-            app.navi.on("postpop", function() {
-                $scope.item = PlanData.selectedItem;
-                $scope.$apply();
+            app.navi.on("postpop", function(e) {
+                if(e.enterPage.page==="html/plan/planDetail.html" &&  PlanData.updated) {
+                    $scope.item = PlanData.selectedItem;
+                    $scope.$apply();
+                }
             });
         });
 app.controller('PlanEditController', function($scope, $filter, $location,$timeout, $anchorScroll, PlanData, PlanCategory, GearData) {
@@ -335,7 +341,7 @@ app.controller('PlanEditController', function($scope, $filter, $location,$timeou
             $scope.edititem = angular.copy($scope.item);
             $scope.plancategory = PlanCategory.items;
             $scope.gears = GearData.items;
-            //日付変換    
+            //日付変換
             $scope.edititem.datefrom = new Date($scope.edititem.datefrom);
             $scope.edititem.dateto = new Date($scope.edititem.dateto);
             
@@ -345,6 +351,11 @@ app.controller('PlanEditController', function($scope, $filter, $location,$timeou
                 }
                 app.navi.popPage();
             };
+            $scope.changeDatafrom = function() {
+                if($scope.edititem.datefrom > $scope.edititem.dateto) {
+                    $scope.edititem.dateto = $scope.edititem.datefrom;
+                }
+            }
             $scope.update = function() {
                 //データ登録
                 if($scope.edititem.gears === undefined) {
@@ -367,6 +378,7 @@ app.controller('PlanEditController', function($scope, $filter, $location,$timeou
                 PlanData.items.push($scope.edititem);
                 PlanData.selectedItem = $scope.edititem;
                 if(saveStrageData('PlanData', PlanData.items)) {
+                    PlanData.updated = true;
                     app.navi.popPage();
                 }
             }
@@ -400,6 +412,11 @@ app.controller('ScheduleEditController', function($scope, $controller, $filter, 
                 });
                 $scope.edititem.schedules.push($scope.editSchedule);
                 $scope.update();
+            }
+            $scope.changeTimefrom = function() {
+                if($scope.editSchedule.timefrom > $scope.editSchedule.timeto) {
+                    $scope.editSchedule.timeto = $scope.editSchedule.timefrom;
+                }
             }
             $scope.dates = [];
             var idx,selectIdx = 0;
@@ -469,6 +486,7 @@ app.controller('BelongingsController', function($scope, $controller, $filter, Pl
                 PlanData.items.push($scope.edititem);
                 PlanData.selectedItem = $scope.edititem;
                 saveStrageData('PlanData', PlanData.items);
+                PlanData.updated = true;
             }
         });
 });

@@ -75,16 +75,22 @@
             <div flex="5"></div>
         </div>
         <div layout="row">
-              <div flex="5"></div>
-              <md-button class="md-raised md-primary" ng-click="openCamera();">写真を撮る</md-button>
-              <md-button class="md-raised md-primary" ng-click="openAlbum();">アルバム</md-button>
-              <div flex="5"></div>
+                <div flex="5"></div>
+                <md-button md-no-ink class="md-fab md-mini md-primary" ng-click="leftImage()">
+                    <ons-icon icon="fa-arrow-left"></ons-icon>
+                </md-button>
+                <md-button md-no-ink class="md-raised md-primary" ng-click="openCamera();">写真を撮る</md-button>
+                <md-button md-no-ink class="md-raised md-primary" ng-click="openAlbum();">アルバム</md-button>
+                <md-button md-no-ink class="md-fab md-mini md-primary" ng-click="rightImage()">
+                    <ons-icon icon="fa-arrow-right"></ons-icon>
+                </md-button>
+                <div flex="5"></div>
         </div>
         <div layout="row">
             <div flex="5"></div>
-            <div flex layout="row">
-                <img ng-repeat="imageItem in edititem.images track by imageItem.name" style="width:100px;height:100px;" ng-src="{{imageItem.src}}" 
-                    ng-class="{'checkedImage':imageItem.checked,'uncheckedImage':!imageItem.checked,'deleteImage':image.isdelete}" ng-click="imageItem.checked = !imageItem.checked"/>
+            <div flex layout="row" style="flex-wrap:wrap;">
+                <img ng-repeat="imageItem in edititem.images track by imageItem.name" style="width:100px;min-width:100px;height:100px;" ng-src="{{imageItem.src}}" 
+                    ng-class="{'deleteImage':imageItem.isdelete,'checkedImage':imageItem.checked,'uncheckedImage':!imageItem.checked}" ng-click="imageItem.checked = !imageItem.checked" draggable="true"/>
             </div>
             <div flex="5"></div>
         </div>

@@ -6,7 +6,7 @@
 </head>
 <body>
 <ons-page modifier="plan-details" ng-controller="PlanListController">
-    <ons-toolbar modifier="list" ng-class="{search: searchOpen}">
+    <ons-toolbar modifier="list" ng-class="{search: searchOpen}" ng-init="searchOpen = true">
         <md-toolbar class="md-hue-2">
           <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings" ng-click="app.slidingMenu.toggleMenu()">

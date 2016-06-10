@@ -47,7 +47,7 @@
               <div flex="5"></div>
               <md-input-container class="md-block" flex="auto">
                 <label>開始時間</label>
-                <input type="time" ng-model="editSchedule.timefrom">
+                <input type="time" ng-model="editSchedule.timefrom" ng-change="changeTimefrom()">
               </md-input-container>
               <md-input-container class="md-block" flex="auto">
                 <label>終了時間</label>

@@ -12,7 +12,7 @@ function camerainit() {
 }
 
 function getPersistentDirectoryEntry(fileSystem) {
-  persistentDirectoryEntry = fileSystem.root;
+    persistentDirectoryEntry = fileSystem.root;
 }
 
 function camera($scope) {
@@ -21,11 +21,12 @@ function camera($scope) {
   sourceType = Camera.PictureSourceType.CAMERA;
   navigator.camera.getPicture(getPictureSuccess, failCamera,
   {
-    quality: 50,
+    quality: 10,
     destinationType: Camera.DestinationType.FILE_URI ,
     correctOrientation: true,
     allowEdit : true,
-    sourceType: sourceType
+    sourceType: sourceType,
+    saveToPhotoAlbum:true
   });
 }
 
@@ -35,7 +36,7 @@ function album($scope) {
   sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
   navigator.camera.getPicture(getPictureSuccess, failCamera,
   {
-    quality: 50,
+    quality: 10,
     destinationType: Camera.DestinationType.FILE_URI ,
     correctOrientation: true,
     allowEdit : true,
@@ -70,7 +71,7 @@ function failFS(error) {
 }
 
 function deleteImage(name) {
-    alert(name);
+//    alert(name);
     persistentDirectoryEntry.getFile(name,{}, delFile, errorDel);
 }
 

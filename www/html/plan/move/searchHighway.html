@@ -7,17 +7,19 @@
 <body>
 
 <ons-page modifier="plan-details" ng-controller="SearchHighwayController">
-    <md-toolbar class="md-hue-2">
-        <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" aria-label="Settings" ng-click="app.slidingMenu.toggleMenu()">
-                <i class="zmdi zmdi-menu"></i>
-            </md-button>
-            <h2>
-                <span>高速道路検索</span>
-            </h2>
-            <span flex></span>
-        </div>
-    </md-toolbar>
+    <ons-toolbar modifier="transparent">
+        <md-toolbar class="md-hue-2">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings" ng-click="app.slidingMenu.toggleMenu()">
+                    <i class="zmdi zmdi-menu"></i>
+                </md-button>
+                <h2>
+                    <span>高速道路検索</span>
+                </h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+    </ons-toolbar>
     <md-content>
         <md-contents class="layout-padding">
             <div layout="row">

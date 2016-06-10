@@ -34,8 +34,8 @@ ons-carousel-item img{
     border: 3px solid #FF9800;
 }
 .uncheckedImage {
-    border: none;
+    border: 0px;
 }
 .deleteImage {
-    display: none;
+    display: none !important;
 }
