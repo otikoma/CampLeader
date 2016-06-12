@@ -41,10 +41,10 @@
                 <span>{{genre.name}}</span>
             </md-subheader>
             <md-list-item ng-repeat-end class="md-2-line" ng-repeat="item in getItems(genre.genreid) track by item.gearid | orderBy: 'name'" ng-click="openDetail(item.gearid);">
-                <img ng-src="{{getImage(item)}}" class="md-avatar"/>
+            <!--    <img ng-src="{{getImage(item)}}" class="md-avatar"/> -->
                 <div class="md-list-item-text" layout="column">
                     <h3>{{item.name}}</h3>
-                    <p>{{item.maker}}</p>
+                    <p>{{item.brand}}</p>
                 </div>
                 <md-menu md-offset="0 -7">
                   <md-button  class="md-icon-button" ng-click="$mdOpenMenu($event)">

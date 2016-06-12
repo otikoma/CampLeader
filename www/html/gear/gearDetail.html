@@ -23,6 +23,8 @@
         <ons-carousel-item ng-repeat="image in images">
             <img src="{{image.src}}" class="{{image.class}}"/>
         </ons-carousel-item>
+        <div ng-show="carousel_detail.getActiveCarouselItemIndex() > 0" class="carousel-item-chevron-l" ng-click="carousel_detail.prev()"></div>
+        <div ng-show="carousel_detail.getActiveCarouselItemIndex() < images.length-1" class="carousel-item-chevron-r" ng-click="carousel_detail.next()"></div>
     </ons-carousel>
     <md-toolbar ng-class="genreCls">
         <div layout="row">

@@ -153,9 +153,12 @@
                                 <img ng-src="{{genre.img}}" class="imgicon"/>
                                 <span>{{genre.name}}</span>
                             </md-subheader>
-                            <md-list-item ng-repeat-end ng-repeat="gearitem in getGears(genre.genreid) track by gearitem.gearid" ng-init="gear = getGear(gearitem.gearid)" ng-click="toggleCheck(gearitem)">
+                            <md-list-item class="md-2-line" ng-repeat-end ng-repeat="gearitem in getGears(genre.genreid) track by gearitem.gearid" ng-init="gear = getGear(gearitem.gearid)" ng-click="toggleCheck(gearitem)">
                                 <md-checkbox ng-model="gearitem.selected"></md-checkbox>
-                                <p>{{gear.name}}</p>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{gear.name}}</h3>
+                                    <p>{{gear.brand}}</p>
+                                </div>
                             </md-list-item>
                         </md-list>
                     </md-content>

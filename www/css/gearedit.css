@@ -39,3 +39,47 @@ ons-carousel-item img{
 .deleteImage {
     display: none !important;
 }
+.carousel-item-chevron-l:before {
+    position: absolute;
+    left: 16px;
+    top: 80%;
+    padding: 5px 0 0 10px;
+    background-color: gray;
+    opacity: 0.6;
+    color: #ddd;
+    line-height: 28px;
+    height: 40px;
+    width: 20px;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size: 28px;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    content: "\f104";
+}
+.carousel-item-chevron-r:before {
+    position: absolute;
+    right: 16px;
+    top: 80%;
+    padding: 5px 0 0 10px;
+    background-color: gray;
+    opacity: 0.6;
+    color: #ddd;
+    line-height: 28px;
+    height: 40px;
+    width: 20px;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size: 28px;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    content: "\f105";
+}
