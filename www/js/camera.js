@@ -24,9 +24,8 @@ function camera($scope) {
     quality: 10,
     destinationType: Camera.DestinationType.FILE_URI ,
     correctOrientation: true,
-    allowEdit : true,
-    sourceType: sourceType,
-    saveToPhotoAlbum:true
+//    allowEdit : true,
+    sourceType: sourceType
   });
 }
 

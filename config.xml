@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="com.outdoor.campleader" version="1.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" id="com.kh.app.create.campsupport" version="1.0.0">
   <name>キャンプサポート</name>
   <description/>
   <author/>
@@ -44,11 +44,11 @@
     <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer"/>
     <param name="ios-package" value="CDVFileTransfer"/>
   </feature>
+  <preference name="monaca:WebViewEngine" value="default"/>
   <access origin="*"/>
   <preference name="KeepRunning" value="true"/>
   <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
-  <preference name="monaca:WebViewEngine" value="default"/>
   <preference name="Orientation" value="default"/>
   <preference name="SplashScreenDelay" value="1000"/>
   <preference name="Fullscreen" value="false"/>
