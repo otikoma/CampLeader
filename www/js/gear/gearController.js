@@ -227,6 +227,10 @@ app.controller('GearEditController', function($scope, $filter, $mdDialog, GearGe
                     }
                 });
             }
+            $scope.setGenreCls = function(genreid) {
+                var genre = $filter("filter")($scope.genres, {"genreid" : $scope.edititem.genreid})[0];
+                return genre.cls;
+            }
             $scope.setGenre = function(genreid) {
                 $scope.genre = $filter("filter")($scope.genres, {"genreid" : genreid})[0];
                 $scope.edititem.genreid = $scope.genre.genreid;

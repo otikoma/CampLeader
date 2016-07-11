@@ -20,15 +20,20 @@
             </div>
         </md-toolbar>
     </ons-toolbar>
-    <md-toolbar ng-class="genreCls">
-        <div layout="row">
-            <md-button class="md-raised flex-colors" ng-click="showDialog($event);">変更</md-button>
-            <img ng-src="{{genre.img}}" class="imgicon-text"/>
-            <h2 class="md-toolbar-tools md-toolbar-tools-bottom">
-                <span class="md-flex" style="color:#000;">{{genre.name}}</span>
-            </h2>
-            <span flex>
-            </span>
+    <md-toolbar ng-class="setGenreCls()">
+        <div layout="row" layout-align="center">
+            <md-select ng-model="edititem.genreid">
+                <md-option ng-repeat="genre in genres" value="{{genre.genreid}}">
+                    <img ng-src="{{genre.img}}" class="imgicon-text"/>
+                    <span class="md-flex" style="color:#000;">{{genre.name}}</span>
+                </md-option>
+            </md-select>
+            <div flex></div>
+            <div>
+                <md-button class="md-raised md-primary" ng-click="addGenre();">
+                    追加
+                </md-button>
+            </div>
         </div>
     </md-toolbar>
     <md-contents layout-padding>

@@ -1,6 +1,8 @@
 // This is a JavaScript file
 app.controller('TopController', function($scope){
-
+    $scope.clear = function() {
+        clearDebug();
+    }
 });
 app.controller('SettingController', function($scope, $http, $httpParamSerializerJQLike, SettingData) {
     $scope.setting = SettingData.items;
